@@ -9,10 +9,12 @@ import FAQ from "./components/FAQ"
 import CTA from "./components/CTA"
 import Footer from "./components/Footer"
 import FloatingCall from "./components/FloatingCall"
+import CallPopup from "./components/CallPopup"
 
 function App() {
   return (
     <div className="min-h-screen bg-white">
+
       <Navbar />
 
       <main>
@@ -28,8 +30,12 @@ function App() {
 
       <Footer />
 
-      {/* Always Visible Call Button */}
+      {/* Permanent Call Button */}
       <FloatingCall />
+
+      {/* Automatic Call Popup */}
+      <CallPopup />
+
     </div>
   )
 }
