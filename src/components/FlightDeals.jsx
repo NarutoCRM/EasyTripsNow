@@ -301,7 +301,7 @@ const FlightDeals = () => {
                                    text-white
                                    text-lg"
                       >
-                        ☎
+
                       </div>
 
                       {/* Heading */}
@@ -362,7 +362,7 @@ const FlightDeals = () => {
                                      transition-all
                                      duration-300"
                         >
-                          ☎ Book Now
+                          Book Now
                         </a>
 
                       </div>
@@ -467,7 +467,7 @@ const FlightDeals = () => {
                                  duration-300
                                  active:scale-[0.98]"
                     >
-                      ☎ Book Now
+                      Book Now
                     </a>
 
                   </div>

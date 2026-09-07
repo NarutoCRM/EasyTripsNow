@@ -108,7 +108,7 @@ export default function Footer() {
                 href={`tel:${PHONE}`}
                 className="block font-semibold text-white hover:text-blue-400"
               >
-                ☎(855) 750-2715
+                (855) 750-2715
               </a>
 
               <a
@@ -130,7 +130,41 @@ export default function Footer() {
             </div>
           </div>
         </div>
+        {/* Payment Methods */}
+        <div className="mt-8 border-t border-white/10 pt-6">
+          <div className="flex flex-wrap items-center gap-4">
+            <span className="text-base font-semibold text-slate-300">
+              We Accept:
+            </span>
 
+            <div className="flex h-12 w-20 items-center justify-center rounded-md bg-white px-2 shadow-sm">
+              <span className="text-xl font-extrabold italic text-blue-900">
+                VISA
+              </span>
+            </div>
+
+            <div className="flex h-12 w-20 items-center justify-center rounded-md bg-white px-2 shadow-sm">
+              <div className="relative flex items-center">
+                <span className="h-7 w-7 rounded-full bg-red-600"></span>
+                <span className="-ml-3 h-7 w-7 rounded-full bg-blue-500"></span>
+              </div>
+            </div>
+
+            <div className="flex h-12 w-20 items-center justify-center rounded-md bg-white px-2 shadow-sm">
+              <span className="text-center text-[9px] font-bold leading-3 text-blue-600">
+                AMERICAN
+                <br />
+                EXPRESS
+              </span>
+            </div>
+
+            <div className="flex h-12 w-20 items-center justify-center rounded-md bg-white px-2 shadow-sm">
+              <span className="text-base font-extrabold italic text-blue-800">
+                PayPal
+              </span>
+            </div>
+          </div>
+        </div>
         {/* Legal Links */}
         <div className="mt-8 border-t border-white/10 pt-6">
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-slate-500">

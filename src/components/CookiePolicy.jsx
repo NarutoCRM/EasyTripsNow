@@ -488,7 +488,7 @@ function CookiePolicy() {
                             href={`tel:${PHONE_NUMBER}`}
                             className="mt-6 inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 text-sm font-bold text-white transition hover:bg-blue-500"
                         >
-                            ☎ Talk to an Expert
+                            Talk to an Expert
                         </a>
                     </div>
                 </div>

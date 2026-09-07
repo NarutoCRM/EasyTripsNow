@@ -1,126 +1,115 @@
 const destinations = [
   {
     name: "New York",
+    subtitle: "The City That Never Sleeps",
     image:
-      "https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=500&q=80",
+      "https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?auto=format&fit=crop&w=900&q=80",
+    link: "/cheap-flights-to-new-york-city",
   },
   {
     name: "Los Angeles",
+    subtitle: "Entertainment Capital of the World",
     image:
-      "https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da?auto=format&fit=crop&w=500&q=80",
-  },
-  {
-    name: "Miami",
-    image:
-      "https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=500&q=80",
+      "https://images.unsplash.com/photo-1534190760961-74e5c5c12f32?auto=format&fit=crop&w=900&q=80",
+    link: "/cheap-flights-to-los-angeles",
   },
   {
     name: "Las Vegas",
+    subtitle: "Excitement, Entertainment & More",
     image:
-      "https://images.unsplash.com/photo-1605833556294-ea7c7a74f57d?auto=format&fit=crop&w=500&q=80",
-  },
-  {
-    name: "Orlando",
-    image:
-      "https://images.unsplash.com/photo-1598948485421-33a1655d3c18?auto=format&fit=crop&w=500&q=80",
-  },
-  {
-    name: "Chicago",
-    image:
-      "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=500&q=80",
-  },
-  {
-    name: "San Francisco",
-    image:
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=500&q=80",
-  },
-  {
-    name: "London",
-    image:
-      "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=500&q=80",
+      "https://images.unsplash.com/photo-1605833556294-ea5c7a74f57d?auto=format&fit=crop&w=900&q=80",
+    link: "/cheap-flights-to-las-vegas",
   },
   {
     name: "Paris",
+    subtitle: "The City of Light",
     image:
-      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=500&q=80",
+      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=80",
+    link: "/cheap-flights-to-paris",
   },
   {
-    name: "Dubai",
+    name: "San Francisco",
+    subtitle: "Golden Gate & Bay Views",
     image:
-      "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=500&q=80",
+      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=900&q=80",
+    link: "/cheap-flights-to-san-francisco",
+  },
+  {
+    name: "Boston",
+    subtitle: "History, Culture & Charm",
+    image:
+      "https://images.unsplash.com/photo-1501979376754-2ff867a4f659?auto=format&fit=crop&w=900&q=80",
+    link: "/cheap-flights-to-boston",
   },
 ]
 
-const PopularDestinations = () => {
+export default function PopularDestinations() {
   return (
-    <section className="bg-white py-12">
-      <div className="max-w-6xl mx-auto px-4">
+    <section className="bg-slate-50 py-16">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
 
         {/* Heading */}
-        <div className="text-center mb-7">
+        <div className="mx-auto mb-10 max-w-3xl text-center">
+          <span className="text-sm font-bold uppercase tracking-widest text-blue-600">
+            Explore & Travel
+          </span>
 
-          <div className="flex items-center justify-center gap-2">
-            <span className="text-[#1687d9] text-3xl">
-              📍
-            </span>
+          <h2 className="mt-2 text-3xl font-extrabold text-slate-900 sm:text-4xl">
+            Explore Popular Destinations
+          </h2>
 
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#123b7a]">
-              Explore Popular Destinations
-            </h2>
-          </div>
-
-          <p className="mt-1 text-sm text-gray-500">
-            Find inspiration for your next trip from these top destinations.
+          <p className="mt-3 text-base leading-7 text-slate-600">
+            Discover popular destinations and explore flight options
+            for your next trip.
           </p>
         </div>
 
         {/* Destination Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {destinations.map((destination) => (
-            <div
+            <a
               key={destination.name}
-              className="group relative h-[105px]
-                         overflow-hidden rounded-xl cursor-pointer"
+              href={destination.link}
+              className="group overflow-hidden rounded-2xl bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
-              <img
-                src={destination.image}
-                alt={destination.name}
-                className="absolute inset-0 w-full h-full
-                           object-cover
-                           group-hover:scale-110
-                           transition-transform duration-500"
-              />
+              {/* Image */}
+              <div className="relative h-56 overflow-hidden">
+                <img
+                  src={destination.image}
+                  alt={`Cheap flights to ${destination.name}`}
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.src = "/hero-plane.jpg"
+                  }}
+                />
 
-              <div className="absolute inset-0 bg-black/35
-                              group-hover:bg-black/20 transition" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
-              <h3 className="absolute bottom-3 left-3
-                             text-white font-extrabold text-sm">
-                {destination.name}
-              </h3>
-            </div>
+                <div className="absolute bottom-4 left-5">
+                  <h3 className="text-2xl font-bold text-white">
+                    {destination.name}
+                  </h3>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="flex items-center justify-between px-5 py-4">
+                <div>
+                  <p className="text-sm font-medium text-slate-600">
+                    {destination.subtitle}
+                  </p>
+                </div>
+
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 text-lg font-bold text-white transition group-hover:bg-blue-700">
+                  →
+                </span>
+              </div>
+            </a>
           ))}
-        </div>
-
-        {/* Button */}
-        <div className="text-center mt-6">
-          <button
-            type="button"
-            className="px-5 py-2.5 rounded-lg
-                       border border-[#1687d9]
-                       text-[#1687d9]
-                       text-sm font-bold
-                       hover:bg-[#1687d9]
-                       hover:text-white
-                       transition"
-          >
-            View All Destinations →
-          </button>
         </div>
 
       </div>
     </section>
   )
 }
-
-export default PopularDestinations

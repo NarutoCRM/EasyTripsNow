@@ -154,7 +154,7 @@ const FlightSearch = () => {
 
         {/* CALL TEXT */}
         <div className="mt-3 flex items-center justify-center gap-2">
-          <span className="text-gray-800 text-xs">☎</span>
+          <span className="text-gray-800 text-xs"> </span>
 
           <p className="text-[10px] text-gray-500">
             Need help finding the right fare? Call an Expert{" "}

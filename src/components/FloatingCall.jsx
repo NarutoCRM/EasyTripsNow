@@ -46,7 +46,7 @@ const FloatingCall = () => {
           text-xl
         "
       >
-        ☎
+
       </span>
 
       {/* Text */}

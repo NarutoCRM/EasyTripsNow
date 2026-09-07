@@ -90,7 +90,7 @@ export default function Navbar() {
                 onClick={() => setMenuOpen(false)}
                 className="mt-4 flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white"
               >
-                ☎(855) 750-2715
+                (855) 750-2715
               </a>
             </div>
           </nav>

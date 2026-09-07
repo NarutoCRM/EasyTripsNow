@@ -479,7 +479,7 @@ const CancellationRefund = () => {
                          text-sm font-bold text-[#123b7a]
                          hover:bg-gray-100 transition"
                         >
-                            ☎ Call(855) 750-2715
+                            Call(855) 750-2715
                         </a>
 
                     </div>
