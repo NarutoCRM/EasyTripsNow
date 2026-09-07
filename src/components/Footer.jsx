@@ -1,250 +1,169 @@
+const PHONE = "8557502715"
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer
-      id="contact"
-      className="bg-[#0b2854] text-white"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Main Footer */}
-        <div className="py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-14">
-
-          {/* Company */}
+    <footer className="bg-slate-950 text-slate-300">
+      <div className="mx-auto max-w-7xl px-5 py-10 sm:px-6 lg:px-8">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          {/* Brand */}
           <div>
+            <a href="/" className="inline-flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 font-extrabold text-white">
+                ET
+              </div>
 
-            <a href="/" className="inline-block">
-              <h2 className="text-2xl font-extrabold">
-                EasyTrips
-                <span className="text-[#38aaf0]">Now</span>
-              </h2>
-
-              <p className="text-[8px] tracking-[3px] text-white/50 text-center mt-1">
-                TRAVEL MADE EASY
-              </p>
+              <div>
+                <div className="text-lg font-extrabold text-white">
+                  EasyTripsNow
+                </div>
+                <div className="text-[10px] uppercase tracking-wider text-slate-500">
+                  Travel Made Easier
+                </div>
+              </div>
             </a>
 
-            <p className="mt-5 text-sm leading-7 text-white/60 max-w-xs">
-              Making travel easier with great deals, simple booking, and
-              reliable expert support.
+            <p className="mt-4 max-w-sm text-sm leading-6 text-slate-400">
+              Explore available travel options, compare itineraries, and find
+              a trip that fits your plans with EasyTripsNow.
             </p>
-
-            {/* Social */}
-            <div className="flex items-center gap-3 mt-6">
-
-              <a
-                href="#"
-                aria-label="Facebook"
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#1687d9] flex items-center justify-center transition"
-              >
-                f
-              </a>
-
-              <a
-                href="#"
-                aria-label="Instagram"
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#1687d9] flex items-center justify-center transition"
-              >
-                ◎
-              </a>
-
-              <a
-                href="#"
-                aria-label="Twitter"
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#1687d9] flex items-center justify-center transition"
-              >
-                𝕏
-              </a>
-
-              <a
-                href="#"
-                aria-label="LinkedIn"
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#1687d9] flex items-center justify-center transition"
-              >
-                in
-              </a>
-
-            </div>
-
-          </div>
-
-          {/* Destinations */}
-          <div>
-
-            <h3 className="text-sm font-bold">
-              Top Destinations
-            </h3>
-
-            <ul className="mt-5 space-y-3">
-
-              <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition">
-                  New York
-                </a>
-              </li>
-
-              <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition">
-                  Los Angeles
-                </a>
-              </li>
-
-              <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition">
-                  Miami
-                </a>
-              </li>
-
-              <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition">
-                  Las Vegas
-                </a>
-              </li>
-
-              <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition">
-                  Orlando
-                </a>
-              </li>
-
-            </ul>
-
           </div>
 
           {/* Quick Links */}
           <div>
-
-            <h3 className="text-sm font-bold">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-white">
               Quick Links
             </h3>
 
-            <ul className="mt-5 space-y-3">
+            <div className="mt-4 space-y-2.5 text-sm">
+              <a className="block hover:text-white" href="/">
+                Home
+              </a>
+              <a className="block hover:text-white" href="/#flight-search">
+                Flights
+              </a>
+              <a className="block hover:text-white" href="/#deals">
+                Deals
+              </a>
+              <a className="block hover:text-white" href="/about-us">
+                About Us
+              </a>
+              <a className="block hover:text-white" href="/contact-us">
+                Contact Us
+              </a>
+            </div>
+          </div>
 
-              <li>
-                <a href="#flights" className="text-sm text-white/60 hover:text-white transition">
-                  Flights
-                </a>
-              </li>
+          {/* Popular Destinations */}
+          <div>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-white">
+              Popular Flights
+            </h3>
 
-              <li>
-                <a href="#deals" className="text-sm text-white/60 hover:text-white transition">
-                  Flight Deals
-                </a>
-              </li>
+            <div className="mt-4 space-y-2.5 text-sm">
+              <a
+                className="block hover:text-white"
+                href="/cheap-flights-to-new-york-city"
+              >
+                Cheap Flights To New York
+              </a>
 
-              <li>
-                <a href="#about" className="text-sm text-white/60 hover:text-white transition">
-                  About Us
-                </a>
-              </li>
+              <a
+                className="block hover:text-white"
+                href="/cheap-flights-to-los-angeles"
+              >
+                Cheap Flights To Los Angeles
+              </a>
 
-              <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition">
-                  Privacy Policy
-                </a>
-              </li>
+              <a
+                className="block hover:text-white"
+                href="/cheap-flights-to-paris"
+              >
+                Cheap Flights To Paris
+              </a>
 
-              <li>
-                <a href="#" className="text-sm text-white/60 hover:text-white transition">
-                  Terms & Conditions
-                </a>
-              </li>
+              <a
+                className="block hover:text-white"
+                href="/cheap-flights-to-san-francisco"
+              >
+                Cheap Flights To San Francisco
+              </a>
 
-            </ul>
-
+              <a
+                className="block hover:text-white"
+                href="/cheap-flights-to-boston"
+              >
+                Cheap Flights To Boston
+              </a>
+            </div>
           </div>
 
           {/* Contact */}
           <div>
-
-            <h3 className="text-sm font-bold">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-white">
               Contact Us
             </h3>
 
-            <div className="mt-5 space-y-5">
+            <div className="mt-4 space-y-3 text-sm">
+              <a
+                href={`tel:${PHONE}`}
+                className="block font-semibold text-white hover:text-blue-400"
+              >
+                ☎(855) 750-2715
+              </a>
 
-              <div className="flex gap-3">
+              <a
+                href="mailto:contact@easytripsnow.com"
+                className="block break-all hover:text-white"
+              >
+                contact@easytripsnow.com
+              </a>
 
-                <span className="shrink-0 w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
-                  ☎
-                </span>
-
-                <div>
-                  <p className="text-xs text-white/40">
-                    Call an Expert
-                  </p>
-
-                  <a
-                    href="tel:18669871234"
-                    className="text-sm font-bold hover:text-[#38aaf0]"
-                  >
-                    1-866-987-1234
-                  </a>
-                </div>
-
-              </div>
-
-              <div className="flex gap-3">
-
-                <span className="shrink-0 w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
-                  ✉
-                </span>
-
-                <div>
-                  <p className="text-xs text-white/40">
-                    Email
-                  </p>
-
-                  <a
-                    href="mailto:info@easytripsnow.com"
-                    className="text-sm hover:text-[#38aaf0]"
-                  >
-                    info@easytripsnow.com
-                  </a>
-                </div>
-
-              </div>
-
-              <div className="flex gap-3">
-
-                <span className="shrink-0 w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
-                  ⏰
-                </span>
-
-                <div>
-                  <p className="text-xs text-white/40">
-                    Working Hours
-                  </p>
-
-                  <p className="text-sm">
-                    Mon - Sun | 8AM - 11PM EST
-                  </p>
-                </div>
-
-              </div>
-
+              <p className="leading-6 text-slate-400">
+                FIVE GREENTREE CENTRE,
+                <br />
+                525 ROUTE 73 NORTH STE 104
+                <br />
+                MARLTON, NEW JERSEY 08053-0805
+                <br />
+                United States
+              </p>
             </div>
+          </div>
+        </div>
 
+        {/* Legal Links */}
+        <div className="mt-8 border-t border-white/10 pt-6">
+          <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-slate-500">
+            <a href="/privacy-policy" className="hover:text-white">
+              Privacy Policy
+            </a>
+
+            <a href="/terms-conditions" className="hover:text-white">
+              Terms & Conditions
+            </a>
+
+            <a href="/cancellation-refund" className="hover:text-white">
+              Cancellation & Refund
+            </a>
+
+            <a href="/cookie-policy" className="hover:text-white">
+              Cookie Policy
+            </a>
+
+            <a href="/disclaimer" className="hover:text-white">
+              Disclaimer
+            </a>
           </div>
 
+          <div className="mt-5 flex flex-col justify-between gap-3 text-xs text-slate-500 sm:flex-row">
+            <p>
+              © {new Date().getFullYear()} EasyTripsNow. All rights reserved.
+            </p>
+
+            <p>Operated by TravelFirst LLC</p>
+          </div>
         </div>
-
-        {/* Bottom */}
-        <div className="border-t border-white/10 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-
-          <p className="text-xs text-white/40 text-center sm:text-left">
-            © {new Date().getFullYear()} EasyTripsNow. All rights reserved.
-          </p>
-
-          <p className="text-xs text-white/40">
-            Travel Made Easy ✈
-          </p>
-
-        </div>
-
       </div>
     </footer>
   )
 }
-
-export default Footer

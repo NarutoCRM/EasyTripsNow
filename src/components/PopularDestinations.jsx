@@ -1,123 +1,120 @@
 const destinations = [
   {
-    city: "New York",
-    country: "United States",
+    name: "New York",
     image:
-      "https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1522083165195-3424ed129620?auto=format&fit=crop&w=500&q=80",
   },
   {
-    city: "Los Angeles",
-    country: "United States",
+    name: "Los Angeles",
     image:
-      "https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da?auto=format&fit=crop&w=500&q=80",
   },
   {
-    city: "Miami",
-    country: "United States",
+    name: "Miami",
     image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=500&q=80",
   },
   {
-    city: "Las Vegas",
-    country: "United States",
+    name: "Las Vegas",
     image:
-      "https://images.unsplash.com/photo-1605833556294-ea5c7a74f57d?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1605833556294-ea7c7a74f57d?auto=format&fit=crop&w=500&q=80",
   },
   {
-    city: "Orlando",
-    country: "United States",
+    name: "Orlando",
     image:
-      "https://images.unsplash.com/photo-1597466599360-3b9775841aec?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1598948485421-33a1655d3c18?auto=format&fit=crop&w=500&q=80",
   },
   {
-    city: "Chicago",
-    country: "United States",
+    name: "Chicago",
     image:
-      "https://images.unsplash.com/photo-1494522358652-f30e61a60313?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=500&q=80",
   },
   {
-    city: "San Francisco",
-    country: "United States",
+    name: "San Francisco",
     image:
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=500&q=80",
   },
   {
-    city: "London",
-    country: "United Kingdom",
+    name: "London",
     image:
-      "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=500&q=80",
+  },
+  {
+    name: "Paris",
+    image:
+      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=500&q=80",
+  },
+  {
+    name: "Dubai",
+    image:
+      "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=500&q=80",
   },
 ]
 
 const PopularDestinations = () => {
   return (
-    <section className="py-20 sm:py-24 bg-[#f7fbff]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-white py-12">
+      <div className="max-w-6xl mx-auto px-4">
 
         {/* Heading */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <p className="text-sm font-semibold uppercase tracking-wider text-[#1687d9] mb-2">
-            Explore the World
-          </p>
+        <div className="text-center mb-7">
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#123b7a]">
-            Explore Popular Destinations
-          </h2>
+          <div className="flex items-center justify-center gap-2">
+            <span className="text-[#1687d9] text-3xl">
+              📍
+            </span>
 
-          <p className="mt-4 text-gray-500 leading-7">
-            Discover amazing destinations and start planning your next
-            unforgettable journey with EasyTripsNow.
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#123b7a]">
+              Explore Popular Destinations
+            </h2>
+          </div>
+
+          <p className="mt-1 text-sm text-gray-500">
+            Find inspiration for your next trip from these top destinations.
           </p>
         </div>
 
-        {/* Destination Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-
+        {/* Destination Cards */}
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
           {destinations.map((destination) => (
             <div
-              key={destination.city}
-              className="group relative h-[230px] sm:h-[270px] rounded-2xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300"
+              key={destination.name}
+              className="group relative h-[105px]
+                         overflow-hidden rounded-xl cursor-pointer"
             >
-              {/* Image */}
               <img
                 src={destination.image}
-                alt={destination.city}
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                alt={destination.name}
+                className="absolute inset-0 w-full h-full
+                           object-cover
+                           group-hover:scale-110
+                           transition-transform duration-500"
               />
 
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-black/35
+                              group-hover:bg-black/20 transition" />
 
-              {/* Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-
-                <p className="text-xs text-white/75 mb-1">
-                  {destination.country}
-                </p>
-
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className="text-lg sm:text-xl font-bold">
-                    {destination.city}
-                  </h3>
-
-                  <span className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-[#1687d9] transition-colors">
-                    →
-                  </span>
-                </div>
-
-              </div>
+              <h3 className="absolute bottom-3 left-3
+                             text-white font-extrabold text-sm">
+                {destination.name}
+              </h3>
             </div>
           ))}
-
         </div>
 
         {/* Button */}
-        <div className="text-center mt-10">
+        <div className="text-center mt-6">
           <button
             type="button"
-            className="px-7 py-3 rounded-xl border-2 border-[#1687d9] text-[#1687d9] font-bold text-sm hover:bg-[#1687d9] hover:text-white transition-all"
+            className="px-5 py-2.5 rounded-lg
+                       border border-[#1687d9]
+                       text-[#1687d9]
+                       text-sm font-bold
+                       hover:bg-[#1687d9]
+                       hover:text-white
+                       transition"
           >
-            Explore All Destinations →
+            View All Destinations →
           </button>
         </div>
 

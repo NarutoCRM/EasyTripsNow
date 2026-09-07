@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from "react"
 
+const PHONE_NUMBER = "8557502715"
+const DISPLAY_PHONE = "(855) 750-2715"
+
+const SHOW_AFTER = 20000
+const AUTO_CLOSE_AFTER = 50000
+
 const CallPopup = () => {
     const [isOpen, setIsOpen] = useState(false)
 
@@ -8,14 +14,18 @@ const CallPopup = () => {
 
     useEffect(() => {
         const startShowTimer = () => {
+            clearTimeout(showTimerRef.current)
+
             showTimerRef.current = setTimeout(() => {
                 setIsOpen(true)
+
+                clearTimeout(hideTimerRef.current)
 
                 hideTimerRef.current = setTimeout(() => {
                     setIsOpen(false)
                     startShowTimer()
-                }, 50000)
-            }, 20000)
+                }, AUTO_CLOSE_AFTER)
+            }, SHOW_AFTER)
         }
 
         startShowTimer()
@@ -30,14 +40,15 @@ const CallPopup = () => {
         setIsOpen(false)
 
         clearTimeout(hideTimerRef.current)
+        clearTimeout(showTimerRef.current)
 
         showTimerRef.current = setTimeout(() => {
             setIsOpen(true)
 
             hideTimerRef.current = setTimeout(() => {
                 setIsOpen(false)
-            }, 50000)
-        }, 40000)
+            }, AUTO_CLOSE_AFTER)
+        }, SHOW_AFTER)
     }
 
     if (!isOpen) {
@@ -45,21 +56,63 @@ const CallPopup = () => {
     }
 
     return (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[9998] w-[calc(100%-32px)] max-w-[430px]">
+        <div
+            className="
+        fixed
+        bottom-5
+        left-1/2
+        -translate-x-1/2
+        z-[9998]
+        w-[calc(100%-28px)]
+        max-w-[400px]
+      "
+        >
+            <div
+                className="
+          relative
+          overflow-hidden
+          rounded-2xl
+          bg-white
+          border
+          border-gray-200
+          shadow-2xl
+        "
+            >
 
-            <div className="relative overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-2xl">
+                {/* ================= HEADER ================= */}
+                <div
+                    className="
+            bg-gradient-to-r
+            from-[#123b7a]
+            to-[#1687d9]
+            px-4
+            py-3
+          "
+                >
 
-                {/* Top Blue Section */}
-                <div className="bg-gradient-to-r from-[#123b7a] to-[#1687d9] px-5 py-4">
-
+                    {/* Close */}
                     <button
                         type="button"
                         onClick={handleClose}
-                        className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center transition"
                         aria-label="Close call popup"
+                        className="
+              absolute
+              top-2.5
+              right-2.5
+              w-7
+              h-7
+              rounded-full
+              bg-white/15
+              hover:bg-white/25
+              text-white
+              flex
+              items-center
+              justify-center
+              transition
+            "
                     >
                         <svg
-                            className="w-5 h-5"
+                            className="w-4 h-4"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -75,9 +128,21 @@ const CallPopup = () => {
 
                     <div className="flex items-center gap-3 pr-8">
 
-                        <div className="w-11 h-11 rounded-full bg-white/15 flex items-center justify-center shrink-0">
+                        {/* Phone Icon */}
+                        <div
+                            className="
+                w-10
+                h-10
+                shrink-0
+                rounded-full
+                bg-white/15
+                flex
+                items-center
+                justify-center
+              "
+                        >
                             <svg
-                                className="w-6 h-6 text-white"
+                                className="w-5 h-5 text-white"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -96,18 +161,18 @@ const CallPopup = () => {
                   2 2 0 0 1-.45 2.11L8.09 9.91
                   a16 16 0 0 0 6 6l1.27-1.27
                   a2 2 0 0 1 2.11-.45
-                  12.84 12.84 0 0 0 2.81.7
+                  12.84 12.84 0 0 1 2.81.7
                   A2 2 0 0 1 22 16.92z"
                                 />
                             </svg>
                         </div>
 
                         <div>
-                            <p className="text-xs text-white/75">
+                            <p className="text-[11px] text-white/75">
                                 Need Help With Your Trip?
                             </p>
 
-                            <h3 className="text-lg font-extrabold text-white">
+                            <h3 className="text-base sm:text-lg font-extrabold text-white leading-5">
                                 Talk to a Travel Expert
                             </h3>
                         </div>
@@ -115,18 +180,36 @@ const CallPopup = () => {
                     </div>
                 </div>
 
-                {/* Content */}
-                <div className="px-5 py-5">
+                {/* ================= BODY ================= */}
+                <div className="px-4 py-4">
 
-                    <p className="text-sm text-gray-600 leading-6">
+                    <p className="text-sm text-gray-600 leading-5">
                         Get help finding the best flights and travel deals.
                         Our travel experts are ready to assist you.
                     </p>
 
                     {/* Call Button */}
                     <a
-                        href="tel:18669871234"
-                        className="mt-4 w-full flex items-center justify-center gap-2 rounded-xl bg-[#1687d9] hover:bg-[#0d75bd] text-white py-3.5 font-bold text-sm shadow-lg shadow-blue-100 transition-all active:scale-[0.98]"
+                        href={`tel:${PHONE_NUMBER}`}
+                        className="
+              mt-4
+              w-full
+              h-12
+              flex
+              items-center
+              justify-center
+              gap-2
+              rounded-xl
+              bg-[#1687d9]
+              hover:bg-[#123b7a]
+              text-white
+              text-sm
+              font-bold
+              shadow-lg
+              shadow-blue-100
+              transition-all
+              active:scale-[0.98]
+            "
                     >
                         <svg
                             className="w-5 h-5"
@@ -153,13 +236,14 @@ const CallPopup = () => {
                             />
                         </svg>
 
-                        Call Now — 1-866-987-1234
+                        Call Now — {DISPLAY_PHONE}
                     </a>
 
-                    <div className="mt-3 flex items-center justify-center gap-2">
+                    {/* Status */}
+                    <div className="mt-2.5 flex items-center justify-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
 
-                        <p className="text-[11px] text-gray-400">
+                        <p className="text-[10px] text-gray-400">
                             Travel experts available now
                         </p>
                     </div>

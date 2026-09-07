@@ -1,195 +1,487 @@
+import { useEffect, useRef } from "react"
+
+const PHONE_NUMBER = "18669871234"
+const DISPLAY_PHONE = "(855) 750-2715"
+
 const deals = [
   {
     from: "New York",
-    fromCode: "JFK",
-    to: "Los Angeles",
-    toCode: "LAX",
-    price: "$189",
-    airline: "American Airlines",
-    date: "Sep 18 - Sep 25",
-  },
-  {
-    from: "Chicago",
-    fromCode: "ORD",
-    to: "Miami",
-    toCode: "MIA",
-    price: "$149",
-    airline: "United Airlines",
-    date: "Sep 20 - Sep 27",
+    to: "London",
+    price: "$499",
+    image:
+      "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=700&q=80",
   },
   {
     from: "New York",
-    fromCode: "JFK",
-    to: "Miami",
-    toCode: "MIA",
-    price: "$159",
-    airline: "Delta Airlines",
-    date: "Sep 22 - Sep 29",
+    to: "Dubai",
+    price: "$659",
+    image:
+      "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=700&q=80",
   },
   {
     from: "Los Angeles",
-    fromCode: "LAX",
-    to: "Las Vegas",
-    toCode: "LAS",
-    price: "$79",
-    airline: "Southwest",
-    date: "Sep 25 - Sep 28",
+    to: "Paris",
+    price: "$579",
+    image:
+      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=700&q=80",
   },
   {
-    from: "Boston",
-    fromCode: "BOS",
-    to: "Orlando",
-    toCode: "MCO",
-    price: "$139",
-    airline: "JetBlue",
-    date: "Sep 26 - Oct 2",
+    from: "Miami",
+    to: "Cancun",
+    price: "$199",
+    image:
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=700&q=80",
+  },
+  {
+    from: "New York",
+    to: "Toronto",
+    price: "$249",
+    image:
+      "https://images.unsplash.com/photo-1517935706615-2717063c2225?auto=format&fit=crop&w=700&q=80",
+  },
+  {
+    type: "contact",
   },
 ]
 
-const FlightDeals = () => {
-  return (
-    <section
-      id="deals"
-      className="py-20 sm:py-24 bg-white"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+// 3 copies = seamless infinite loop
+const loopSlides = [...deals, ...deals, ...deals]
 
-        {/* Section Heading */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 mb-10">
+const FlightDeals = () => {
+  const sliderRef = useRef(null)
+  const autoPlayRef = useRef(null)
+
+  const CARD_WIDTH = 236
+  const SET_SIZE = deals.length
+
+  // Start from middle copy
+  useEffect(() => {
+    const slider = sliderRef.current
+
+    if (!slider) return
+
+    requestAnimationFrame(() => {
+      slider.scrollLeft = SET_SIZE * CARD_WIDTH
+    })
+
+    startAutoPlay()
+
+    return () => {
+      clearInterval(autoPlayRef.current)
+    }
+  }, [])
+
+  const startAutoPlay = () => {
+    clearInterval(autoPlayRef.current)
+
+    autoPlayRef.current = setInterval(() => {
+      moveNext()
+    }, 3000)
+  }
+
+  const pauseAutoPlay = () => {
+    clearInterval(autoPlayRef.current)
+  }
+
+  const moveNext = () => {
+    const slider = sliderRef.current
+
+    if (!slider) return
+
+    slider.scrollBy({
+      left: CARD_WIDTH,
+      behavior: "smooth",
+    })
+
+    setTimeout(() => {
+      resetPosition()
+    }, 650)
+  }
+
+  const movePrevious = () => {
+    const slider = sliderRef.current
+
+    if (!slider) return
+
+    slider.scrollBy({
+      left: -CARD_WIDTH,
+      behavior: "smooth",
+    })
+
+    setTimeout(() => {
+      resetPosition()
+    }, 650)
+  }
+
+  const resetPosition = () => {
+    const slider = sliderRef.current
+
+    if (!slider) return
+
+    const middleStart = SET_SIZE * CARD_WIDTH
+    const middleEnd = SET_SIZE * 2 * CARD_WIDTH
+
+    /*
+     * If we reach the third copy,
+     * silently move back to the middle copy.
+     */
+    if (slider.scrollLeft >= middleEnd) {
+      slider.style.scrollBehavior = "auto"
+      slider.scrollLeft -= SET_SIZE * CARD_WIDTH
+      slider.style.scrollBehavior = "smooth"
+    }
+
+    /*
+     * If we move before the middle copy,
+     * silently move forward to the middle copy.
+     */
+    if (slider.scrollLeft < middleStart) {
+      slider.style.scrollBehavior = "auto"
+      slider.scrollLeft += SET_SIZE * CARD_WIDTH
+      slider.style.scrollBehavior = "smooth"
+    }
+  }
+
+  const handleMouseEnter = () => {
+    pauseAutoPlay()
+  }
+
+  const handleMouseLeave = () => {
+    startAutoPlay()
+  }
+
+  return (
+    <section className="bg-[#f7faff] py-12">
+      <div className="max-w-6xl mx-auto px-4">
+
+        {/* ================= HEADER ================= */}
+        <div className="flex items-center justify-between mb-6">
 
           <div>
-            <p className="text-sm font-semibold text-[#1687d9] uppercase tracking-wider mb-2">
-              Great Deals
-            </p>
+            <div className="flex items-center gap-2">
+              <span className="text-orange-500 text-lg">
+                ⏰
+              </span>
 
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#123b7a]">
-              Limited Time Flight Deals
-            </h2>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-[#123b7a]">
+                Limited Time Flight Deals
+              </h2>
+            </div>
 
-            <p className="mt-3 text-gray-500 max-w-2xl">
-              Grab these special fares before they are gone. Book your next
-              trip and save more with EasyTripsNow.
+            <p className="mt-1 text-xs sm:text-sm text-gray-500">
+              Unbeatable fares to top destinations. Book now!
             </p>
           </div>
 
-          <button
-            type="button"
-            className="self-start sm:self-auto text-sm font-bold text-[#1687d9] hover:text-[#0d75bd] transition"
-          >
-            View All Deals →
-          </button>
+          {/* Navigation */}
+          <div className="flex items-center gap-2">
 
+            <button
+              type="button"
+              onClick={() => {
+                pauseAutoPlay()
+                movePrevious()
+                startAutoPlay()
+              }}
+              className="w-9 h-9 rounded-full bg-white
+                         border border-gray-200
+                         flex items-center justify-center
+                         text-[#123b7a]
+                         shadow-sm
+                         hover:bg-[#123b7a]
+                         hover:text-white
+                         transition-all duration-300"
+            >
+              ←
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                pauseAutoPlay()
+                moveNext()
+                startAutoPlay()
+              }}
+              className="w-9 h-9 rounded-full bg-white
+                         border border-gray-200
+                         flex items-center justify-center
+                         text-[#123b7a]
+                         shadow-sm
+                         hover:bg-[#123b7a]
+                         hover:text-white
+                         transition-all duration-300"
+            >
+              →
+            </button>
+
+          </div>
         </div>
 
-        {/* Deal Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+        {/* ================= INFINITE CAROUSEL ================= */}
+        <div
+          ref={sliderRef}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="flex gap-4
+                     overflow-x-auto
+                     scroll-smooth
+                     snap-x
+                     snap-mandatory
+                     pb-4
+                     [scrollbar-width:none]
+                     [&::-webkit-scrollbar]:hidden"
+        >
 
-          {deals.map((deal, index) => (
-            <div
-              key={index}
-              className="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-blue-200 hover:shadow-xl transition-all duration-300"
-            >
+          {loopSlides.map((slide, index) => {
 
-              {/* Top */}
-              <div className="bg-gradient-to-br from-[#edf7ff] to-[#f8fbff] p-5">
+            /* ================= CONTACT CARD ================= */
+            if (slide.type === "contact") {
+              return (
+                <div
+                  key={`contact-${index}`}
+                  className="min-w-[220px]
+                             sm:min-w-[220px]
+                             snap-start"
+                >
+                  <div
+                    className="group
+                               relative
+                               min-h-[285px]
+                               h-full
+                               rounded-xl
+                               overflow-hidden
+                               bg-gradient-to-br
+                               from-[#123b7a]
+                               to-[#1687d9]
+                               shadow-md
+                               hover:-translate-y-2
+                               hover:shadow-2xl
+                               transition-all duration-300"
+                  >
 
-                <div className="flex items-center justify-between mb-5">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#1687d9] bg-white px-2.5 py-1 rounded-full">
-                    Flight Deal
-                  </span>
+                    {/* Decorative */}
+                    <div
+                      className="absolute
+                                 -top-10
+                                 -right-10
+                                 w-32
+                                 h-32
+                                 rounded-full
+                                 bg-white/10"
+                    />
 
-                  <span className="text-xs text-gray-400">
-                    Round Trip
-                  </span>
-                </div>
+                    <div
+                      className="absolute
+                                 -bottom-12
+                                 -left-12
+                                 w-36
+                                 h-36
+                                 rounded-full
+                                 bg-white/5"
+                    />
 
-                {/* Route */}
-                <div className="flex items-center justify-between">
+                    <div
+                      className="relative
+                                 z-10
+                                 p-5
+                                 min-h-[285px]
+                                 flex
+                                 flex-col"
+                    >
 
-                  <div>
-                    <p className="text-xs text-gray-400">
-                      {deal.from}
-                    </p>
+                      {/* Icon */}
+                      <div
+                        className="w-10
+                                   h-10
+                                   rounded-full
+                                   bg-white/15
+                                   flex
+                                   items-center
+                                   justify-center
+                                   text-white
+                                   text-lg"
+                      >
+                        ☎
+                      </div>
 
-                    <p className="text-2xl font-extrabold text-[#123b7a]">
-                      {deal.fromCode}
-                    </p>
-                  </div>
+                      {/* Heading */}
+                      <h3
+                        className="mt-4
+                                   text-base
+                                   leading-5
+                                   font-extrabold
+                                   text-white"
+                      >
+                        Lock In Your Fare Before It’s Too Late!
+                      </h3>
 
-                  <div className="flex-1 px-3">
-                    <div className="relative flex items-center">
-                      <div className="h-px w-full bg-blue-200" />
+                      {/* Description */}
+                      <p
+                        className="mt-2
+                                   text-[11px]
+                                   leading-5
+                                   text-white/80"
+                      >
+                        Don’t miss out on exclusive deals available over the
+                        phone.
+                      </p>
 
-                      <div className="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white border border-blue-100 flex items-center justify-center shadow-sm">
-                        <span className="text-[#1687d9] text-sm">
-                          ✈
-                        </span>
+                      {/* Bottom */}
+                      <div className="mt-auto pt-4">
+
+                        <p className="text-[10px] text-white/70">
+                          Book now at
+                        </p>
+
+                        <a
+                          href={`tel:${PHONE_NUMBER}`}
+                          className="block
+                                     mt-1
+                                     text-base
+                                     font-extrabold
+                                     text-white"
+                        >
+                          {DISPLAY_PHONE}
+                        </a>
+
+                        <a
+                          href={`tel:${PHONE_NUMBER}`}
+                          className="mt-3
+                                     h-9
+                                     rounded-lg
+                                     bg-[#f59b00]
+                                     hover:bg-[#e58c00]
+                                     text-white
+                                     text-xs
+                                     font-bold
+                                     flex
+                                     items-center
+                                     justify-center
+                                     gap-2
+                                     shadow-lg
+                                     transition-all
+                                     duration-300"
+                        >
+                          ☎ Book Now
+                        </a>
+
                       </div>
                     </div>
                   </div>
+                </div>
+              )
+            }
 
-                  <div className="text-right">
-                    <p className="text-xs text-gray-400">
-                      {deal.to}
-                    </p>
+            /* ================= DEAL CARD ================= */
+            return (
+              <div
+                key={`${slide.from}-${slide.to}-${index}`}
+                className="min-w-[220px]
+                           sm:min-w-[220px]
+                           snap-start"
+              >
+                <div
+                  className="group
+                             bg-white
+                             rounded-xl
+                             overflow-hidden
+                             border border-gray-200
+                             shadow-sm
+                             hover:-translate-y-2
+                             hover:shadow-xl
+                             hover:border-blue-200
+                             transition-all
+                             duration-300"
+                >
 
-                    <p className="text-2xl font-extrabold text-[#123b7a]">
-                      {deal.toCode}
-                    </p>
+                  {/* Image */}
+                  <div className="relative h-[110px] overflow-hidden">
+
+                    <img
+                      src={slide.image}
+                      alt={`${slide.from} to ${slide.to}`}
+                      className="w-full
+                                 h-full
+                                 object-cover
+                                 group-hover:scale-110
+                                 transition-transform
+                                 duration-500"
+                    />
+
+                    <div
+                      className="absolute
+                                 inset-0
+                                 bg-black/5
+                                 group-hover:bg-transparent
+                                 transition"
+                    />
+
                   </div>
 
-                </div>
-              </div>
-
-              {/* Details */}
-              <div className="p-5">
-
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs text-gray-500">
-                    {deal.date}
-                  </span>
-
-                  <span className="text-xs font-medium text-gray-500">
-                    {deal.airline}
-                  </span>
-                </div>
-
-                <div className="border-t border-gray-100 pt-4 flex items-end justify-between">
-
-                  <div>
-                    <p className="text-[11px] text-gray-400">
-                      From
-                    </p>
-
-                    <p className="text-2xl font-extrabold text-[#123b7a]">
-                      {deal.price}
-                    </p>
+                  {/* Content */}
+                  <div className="p-4">
 
                     <p className="text-[10px] text-gray-400">
-                      round trip
+                      {slide.from}
                     </p>
+
+                    <h3 className="text-sm font-bold text-[#123b7a]">
+                      To {slide.to}
+                    </h3>
+
+                    <div className="mt-3 flex items-end justify-between">
+
+                      <div>
+                        <p className="text-[9px] text-gray-400">
+                          From
+                        </p>
+
+                        <p className="text-xl font-extrabold text-[#123b7a]">
+                          {slide.price}
+                        </p>
+                      </div>
+
+                      <p className="text-[9px] text-gray-400">
+                        Round Trip
+                      </p>
+
+                    </div>
+
+                    {/* Book Now */}
+                    <a
+                      href={`tel:${PHONE_NUMBER}`}
+                      className="mt-4
+                                 w-full
+                                 h-9
+                                 rounded-lg
+                                 bg-[#1687d9]
+                                 hover:bg-[#123b7a]
+                                 text-white
+                                 text-xs
+                                 font-bold
+                                 flex
+                                 items-center
+                                 justify-center
+                                 gap-2
+                                 transition-all
+                                 duration-300
+                                 active:scale-[0.98]"
+                    >
+                      ☎ Book Now
+                    </a>
+
                   </div>
-
-                  <button
-                    type="button"
-                    className="px-3 py-2 rounded-lg bg-[#1687d9] text-white text-xs font-bold hover:bg-[#0d75bd] transition"
-                  >
-                    View Deal
-                  </button>
-
                 </div>
               </div>
-
-            </div>
-          ))}
+            )
+          })}
 
         </div>
 
-        {/* Bottom Note */}
-        <div className="mt-8 flex items-center justify-center gap-2 text-sm text-gray-400">
-          <span className="text-green-500">✓</span>
-          Prices shown are subject to availability and may change.
-        </div>
+        {/* Mobile */}
+        <p className="sm:hidden text-center text-[10px] text-gray-400 mt-1">
+          Swipe to explore more deals →
+        </p>
 
       </div>
     </section>

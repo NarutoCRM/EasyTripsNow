@@ -1,129 +1,46 @@
 const JourneyPriority = () => {
   return (
-    <section className="py-20 sm:py-24 bg-[#f7fbff]">
+    <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-
-          {/* Image */}
-          <div className="relative">
-            <div className="rounded-3xl overflow-hidden shadow-xl">
-              <img
-                src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80"
-                alt="Airplane flying above clouds"
-                className="w-full h-[380px] sm:h-[480px] object-cover"
-              />
-            </div>
-
-            {/* Floating Card */}
-            <div className="absolute -bottom-5 -right-3 sm:right-6 bg-white rounded-2xl shadow-xl p-5 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-2xl">
-                ✈️
-              </div>
-
-              <div>
-                <p className="text-2xl font-extrabold text-[#123b7a]">
-                  500K+
-                </p>
-                <p className="text-xs text-gray-500">
-                  Journeys Made Easy
-                </p>
-              </div>
-            </div>
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <img
+              src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1000&q=80"
+              alt="Traveler at airport"
+              className="w-full h-[380px] object-cover rounded-2xl"
+            />
           </div>
 
-          {/* Content */}
-          <div className="pt-5 lg:pt-0">
-
-            <p className="text-sm font-semibold uppercase tracking-wider text-[#1687d9] mb-3">
-              Travel With Confidence
-            </p>
-
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-[#123b7a]">
-              Your Journey,
-              <br />
-              <span className="text-[#1687d9]">
-                Our Priority.
-              </span>
+          <div>
+            <h2 className="text-3xl font-extrabold text-[#123b7a]">
+              Your Journey, Our Priority
             </h2>
 
-            <p className="mt-6 text-gray-500 leading-7">
-              At EasyTripsNow, we believe that travel should be exciting,
-              simple, and stress-free. Our team works behind the scenes to
-              make every part of your trip easier.
+            <p className="mt-5 text-gray-600 leading-7">
+              At EasyTripsNow, we believe planning a trip should feel
+              exciting—not overwhelming. Whether you're visiting family,
+              heading on a long-awaited vacation, or simply looking for a
+              change of scenery, we're here to make finding your flight easier.
             </p>
 
-            <p className="mt-4 text-gray-500 leading-7">
-              From finding the right flight to helping you with your travel
-              plans, our experts are here to support you every step of the
-              way.
+            <p className="mt-4 text-gray-600 leading-7">
+              We bring flight options from leading airlines together in one
+              convenient place, helping you explore routes, compare fares, and
+              find an option that works for your plans. Our team is also
+              available when you need an extra hand navigating your choices.
             </p>
 
-            {/* Points */}
-            <div className="mt-7 space-y-4">
+            <p className="mt-4 text-gray-600 leading-7">
+              From the first search to the moment your travel plans come
+              together, EasyTripsNow is focused on making your experience
+              simple, helpful, and stress-free.
+            </p>
 
-              <div className="flex items-start gap-3">
-                <span className="shrink-0 w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xs font-bold">
-                  ✓
-                </span>
-
-                <div>
-                  <h3 className="font-bold text-[#123b7a]">
-                    Personalized Travel Assistance
-                  </h3>
-
-                  <p className="text-sm text-gray-500 mt-1">
-                    Get guidance based on your travel needs and preferences.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <span className="shrink-0 w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xs font-bold">
-                  ✓
-                </span>
-
-                <div>
-                  <h3 className="font-bold text-[#123b7a]">
-                    Reliable Travel Support
-                  </h3>
-
-                  <p className="text-sm text-gray-500 mt-1">
-                    Our experts are ready to help whenever you need us.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <span className="shrink-0 w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xs font-bold">
-                  ✓
-                </span>
-
-                <div>
-                  <h3 className="font-bold text-[#123b7a]">
-                    Simple & Transparent
-                  </h3>
-
-                  <p className="text-sm text-gray-500 mt-1">
-                    Straightforward booking with clear pricing and options.
-                  </p>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Button */}
-            <button
-              type="button"
-              className="mt-8 px-7 py-3.5 rounded-xl bg-[#1687d9] hover:bg-[#0d75bd] text-white font-bold text-sm shadow-lg shadow-blue-100 transition-all"
-            >
-              Learn More About Us →
-            </button>
-
+            <p className="mt-5 font-bold text-[#123b7a]">
+              Travel more. Worry less. That's the EasyTripsNow promise.
+            </p>
           </div>
-
         </div>
-
       </div>
     </section>
   )

@@ -24,7 +24,7 @@ const faqs = [
     {
         question: "How can I contact EasyTripsNow support?",
         answer:
-            "You can contact our travel experts by calling 1-866-987-1234. Our support team is available Mon - Sun from 8AM - 11PM EST.",
+            "You can contact our travel experts by calling (855)750-2715. Our support team is available Mon - Sun from 8AM - 11PM EST.",
     },
     {
         question: "Does EasyTripsNow offer hotel and car bookings?",
@@ -72,8 +72,8 @@ const FAQ = () => {
                             <div
                                 key={faq.question}
                                 className={`bg-white border rounded-2xl overflow-hidden transition-all duration-300 ${isOpen
-                                        ? "border-blue-200 shadow-md"
-                                        : "border-gray-200"
+                                    ? "border-blue-200 shadow-md"
+                                    : "border-gray-200"
                                     }`}
                             >
 
@@ -86,8 +86,8 @@ const FAQ = () => {
 
                                     <span
                                         className={`text-sm sm:text-base font-bold ${isOpen
-                                                ? "text-[#1687d9]"
-                                                : "text-[#123b7a]"
+                                            ? "text-[#1687d9]"
+                                            : "text-[#123b7a]"
                                             }`}
                                     >
                                         {faq.question}
@@ -95,8 +95,8 @@ const FAQ = () => {
 
                                     <span
                                         className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all ${isOpen
-                                                ? "bg-[#1687d9] text-white rotate-180"
-                                                : "bg-blue-50 text-[#1687d9]"
+                                            ? "bg-[#1687d9] text-white rotate-180"
+                                            : "bg-blue-50 text-[#1687d9]"
                                             }`}
                                     >
                                         <svg
@@ -141,10 +141,10 @@ const FAQ = () => {
                     </p>
 
                     <a
-                        href="tel:18669871234"
+                        href="tel:(855)750-2715"
                         className="inline-block mt-2 text-sm font-bold text-[#1687d9] hover:text-[#123b7a]"
                     >
-                        Talk to an Expert → 1-866-987-1234
+                        Talk to an Expert → (855)750-2715
                     </a>
 
                 </div>

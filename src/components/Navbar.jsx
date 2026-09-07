@@ -1,242 +1,101 @@
 import { useState } from "react"
 
-const Navbar = () => {
+const PHONE = "8557502715"
+
+const navLinks = [
+  { label: "Flights", href: "/#flight-search" },
+  { label: "Hotels", href: "/#hotels" },
+  { label: "Cars", href: "/#cars" },
+  { label: "Deals", href: "/#deals" },
+  { label: "About Us", href: "/about-us" },
+  { label: "Contact Us", href: "contact-us" },
+]
+
+export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <header className="w-full bg-white border-b border-gray-200 relative z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <div className="min-h-[76px] flex items-center justify-between gap-4">
-
-          {/* Logo */}
-          <a href="/" className="shrink-0">
-            <h1 className="text-[24px] sm:text-[27px] font-extrabold tracking-tight text-[#123b7a]">
-              EasyTrips<span className="text-[#1687d9]">Now</span>
-            </h1>
-
-            <p className="text-[8px] tracking-[3px] text-gray-500 text-center">
-              TRAVEL MADE EASY
-            </p>
-          </a>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
-
-            <a
-              href="#flights"
-              className="text-sm font-medium text-gray-700 hover:text-[#1687d9]"
-            >
-              Flights
-            </a>
-
-            <a
-              href="#hotels"
-              className="text-sm font-medium text-gray-700 hover:text-[#1687d9]"
-            >
-              Hotels
-            </a>
-
-            <a
-              href="#cars"
-              className="text-sm font-medium text-gray-700 hover:text-[#1687d9]"
-            >
-              Cars
-            </a>
-
-            <a
-              href="#deals"
-              className="text-sm font-medium text-gray-700 hover:text-[#1687d9]"
-            >
-              Deals
-            </a>
-
-            <a
-              href="#about"
-              className="text-sm font-medium text-gray-700 hover:text-[#1687d9]"
-            >
-              About Us
-            </a>
-
-            <a
-              href="#contact"
-              className="text-sm font-medium text-gray-700 hover:text-[#1687d9]"
-            >
-              Contact Us
-            </a>
-
-          </nav>
-
-          {/* Call Expert - Always visible on desktop */}
-          <div className="hidden md:flex items-center gap-2 shrink-0">
-
-            <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center">
-              <svg
-                className="w-5 h-5 text-[#1687d9]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.8"
-                  d="M22 16.92v3a2 2 0 0 1-2.18 2
-                  19.79 19.79 0 0 1-8.63-3.07
-                  19.5 19.5 0 0 1-6-6
-                  19.79 19.79 0 0 1-3.07-8.67
-                  A2 2 0 0 1 4.11 2h3
-                  a2 2 0 0 1 2 1.72
-                  12.84 12.84 0 0 1 .7 2.81
-                  2 2 0 0 1-.45 2.11L8.09 9.91
-                  a16 16 0 0 0 6 6l1.27-1.27
-                  a2 2 0 0 1 2.11-.45
-                  12.84 12.84 0 0 0 2.81.7
-                  A2 2 0 0 1 22 16.92z"
-                />
-              </svg>
-            </div>
-
-            <div>
-              <p className="text-[10px] text-gray-500">
-                Call an Expert
-              </p>
-
-              <a
-                href="tel:18669871234"
-                className="text-[13px] font-bold text-[#123b7a] whitespace-nowrap"
-              >
-                1-866-987-1234
-              </a>
-
-              <p className="text-[8px] text-gray-400 whitespace-nowrap">
-                Mon - Sun | 8AM - 11PM EST
-              </p>
-            </div>
-
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
+        {/* Logo */}
+        <a href="/" className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-lg font-extrabold text-white shadow-md">
+            ET
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            type="button"
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 text-[#123b7a]"
-            aria-label="Toggle menu"
-          >
-            {menuOpen ? (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
-          </button>
+          <div className="leading-tight">
+            <div className="text-lg font-extrabold text-slate-900">
+              EasyTripsNow
+            </div>
+            <div className="text-[10px] font-medium uppercase tracking-wider text-slate-500">
+              Travel Made Easier
+            </div>
+          </div>
+        </a>
 
-        </div>
+        {/* Desktop Navigation */}
+        <nav className="hidden items-center gap-7 lg:flex">
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="text-sm font-semibold text-slate-600 transition hover:text-blue-600"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
+        {/* Desktop Call */}
+        <a
+          href={`tel:${PHONE}`}
+          className="hidden rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-bold text-white shadow-md transition hover:bg-blue-700 lg:inline-flex"
+        >
+          Call an Expert
+        </a>
+
+        {/* Mobile Button */}
+        <button
+          type="button"
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 lg:hidden"
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? (
+            <span className="text-2xl leading-none">×</span>
+          ) : (
+            <span className="text-xl">☰</span>
+          )}
+        </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Navigation */}
       {menuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-lg">
-
-          <nav className="px-5 py-4 flex flex-col">
-
-            <a
-              href="#flights"
-              onClick={() => setMenuOpen(false)}
-              className="py-3 text-gray-700 font-medium border-b border-gray-100"
-            >
-              Flights
-            </a>
-
-            <a
-              href="#hotels"
-              onClick={() => setMenuOpen(false)}
-              className="py-3 text-gray-700 font-medium border-b border-gray-100"
-            >
-              Hotels
-            </a>
-
-            <a
-              href="#cars"
-              onClick={() => setMenuOpen(false)}
-              className="py-3 text-gray-700 font-medium border-b border-gray-100"
-            >
-              Cars
-            </a>
-
-            <a
-              href="#deals"
-              onClick={() => setMenuOpen(false)}
-              className="py-3 text-gray-700 font-medium border-b border-gray-100"
-            >
-              Deals
-            </a>
-
-            <a
-              href="#about"
-              onClick={() => setMenuOpen(false)}
-              className="py-3 text-gray-700 font-medium border-b border-gray-100"
-            >
-              About Us
-            </a>
-
-            <a
-              href="#contact"
-              onClick={() => setMenuOpen(false)}
-              className="py-3 text-gray-700 font-medium"
-            >
-              Contact Us
-            </a>
-
-            {/* Mobile Call Expert */}
-            <div className="mt-3 pt-4 border-t border-gray-200">
-
-              <p className="text-xs text-gray-500">
-                Call an Expert
-              </p>
+        <div className="border-t border-slate-200 bg-white lg:hidden">
+          <nav className="mx-auto max-w-7xl px-5 py-4 sm:px-6">
+            <div className="flex flex-col">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="border-b border-slate-100 py-3.5 text-sm font-semibold text-slate-700 hover:text-blue-600"
+                >
+                  {link.label}
+                </a>
+              ))}
 
               <a
-                href="tel:18669871234"
-                className="text-base font-bold text-[#123b7a]"
+                href={`tel:${PHONE}`}
+                onClick={() => setMenuOpen(false)}
+                className="mt-4 flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white"
               >
-                1-866-987-1234
+                ☎(855) 750-2715
               </a>
-
-              <p className="text-xs text-gray-400 mt-1">
-                Mon - Sun | 8AM - 11PM EST
-              </p>
-
             </div>
-
           </nav>
         </div>
       )}
-
     </header>
   )
 }
-
-export default Navbar

@@ -1,51 +1,27 @@
 const CTA = () => {
   return (
-    <section className="px-4 sm:px-6 lg:px-8 py-16">
-      <div className="max-w-7xl mx-auto">
-        <div className="relative overflow-hidden rounded-3xl bg-[#123b7a] px-6 py-14 sm:px-12 sm:py-16 text-center">
+    <section className="py-14 bg-gradient-to-r from-[#123b7a] to-[#1687d9]">
+      <div className="max-w-6xl mx-auto px-4 text-center text-white">
+        <h2 className="text-3xl sm:text-4xl font-extrabold">
+          Ready to Take Off?
+        </h2>
 
-          {/* Decorative Circles */}
-          <div className="absolute -top-20 -left-20 w-52 h-52 rounded-full bg-white/5" />
-          <div className="absolute -bottom-24 -right-16 w-64 h-64 rounded-full bg-white/5" />
+        <p className="mt-3 text-white/85">
+          Your next adventure could be closer than you think. Explore flight
+          options today or speak with one of our travel experts for assistance.
+        </p>
 
-          <div className="relative z-10 max-w-2xl mx-auto">
+        <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <button className="rounded-lg bg-orange-500 hover:bg-orange-600 px-7 py-3 font-bold transition">
+            ✈ Search Flights
+          </button>
 
-            <span className="text-4xl">
-              ✈️
-            </span>
-
-            <h2 className="mt-5 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
-              Ready to Take Off?
-            </h2>
-
-            <p className="mt-4 text-sm sm:text-base leading-7 text-white/70">
-              Your next adventure is waiting. Find great travel deals and
-              start planning your journey today.
-            </p>
-
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-
-              <a
-                href="#flights"
-                className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-[#1687d9] hover:bg-[#2b9be8] text-white font-bold text-sm transition-all"
-              >
-                Search Flights →
-              </a>
-
-              <a
-                href="tel:18669871234"
-                className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-white hover:bg-gray-100 text-[#123b7a] font-bold text-sm transition-all"
-              >
-                ☎ Call an Expert
-              </a>
-
-            </div>
-
-            <p className="mt-5 text-xs text-white/50">
-              Mon - Sun | 8AM - 11PM EST
-            </p>
-
-          </div>
+          <a
+            href="tel:18669871234"
+            className="rounded-lg border border-white/60 px-7 py-3 font-bold hover:bg-white/10 transition"
+          >
+            ☎ Call an Expert: (855) 750-2715
+          </a>
         </div>
       </div>
     </section>
