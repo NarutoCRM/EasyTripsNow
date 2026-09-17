@@ -1,3 +1,6 @@
+import { appData } from "../data"
+import { formatPhoneNumber } from "../utils/helper"
+
 const TermsConditions = () => {
     return (
         <main className="bg-white">
@@ -478,10 +481,10 @@ const TermsConditions = () => {
                                     Phone:
                                 </strong>{" "}
                                 <a
-                                    href="tel:8557502715"
+                                    href={`tel:${appData.phoneNumber}`}
                                     className="text-[#1687d9] hover:underline"
                                 >
-                                    (855) 750-2715
+                                 {formatPhoneNumber(appData.phoneNumber)}
                                 </a>
                             </p>
 

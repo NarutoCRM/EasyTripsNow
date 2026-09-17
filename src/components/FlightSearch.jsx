@@ -1,4 +1,7 @@
 import { useState } from "react"
+import { appData } from "../data"
+import { formatPhoneNumber } from "../utils/helper"
+
 
 const FlightSearch = () => {
   const [activeTab, setActiveTab] = useState("Flights")
@@ -162,7 +165,7 @@ const FlightSearch = () => {
               href="tel:18669871234"
               className="font-bold text-[#1687d9]"
             >
-              (855) 750-2715
+               {formatPhoneNumber(appData.phoneNumber)}
             </a>
           </p>
         </div>

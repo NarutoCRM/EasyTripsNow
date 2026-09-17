@@ -1,3 +1,6 @@
+import { appData } from "../data"
+import { formatPhoneNumber } from "../utils/helper"
+
 const PHONE = "8557502715"
 
 export default function Footer() {
@@ -108,7 +111,7 @@ export default function Footer() {
                 href={`tel:${PHONE}`}
                 className="block font-semibold text-white hover:text-blue-400"
               >
-                (855) 750-2715
+                 {formatPhoneNumber(appData.phoneNumber)}
               </a>
 
               <a

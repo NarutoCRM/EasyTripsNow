@@ -2,6 +2,7 @@ import FlightSearch from "./FlightSearch"
 
 const Hero = () => {
   return (
+    
     <section
       className="relative min-h-[calc(100vh-65px)] flex items-center overflow-hidden bg-cover bg-center"
       style={{ backgroundImage: "url('/hero-plane.jpg')" }}
@@ -65,6 +66,7 @@ const Hero = () => {
         </div>
       </div>
     </section>
+      
   )
 }
 

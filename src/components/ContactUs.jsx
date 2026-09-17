@@ -1,8 +1,11 @@
 import { useState } from "react"
+import {appData} from "../data"
+import { formatPhoneNumber } from "../utils/helper"
 
-const PHONE = "8557502715"
-const DISPLAY_PHONE = "(855) 750-2715"
-const EMAIL = "contact@easytripsnow.com"
+
+const PHONE = appData.phoneNumber
+const DISPLAY_PHONE = formatPhoneNumber(PHONE)
+const EMAIL = appData.email
 
 export default function ContactUs() {
     const [form, setForm] = useState({

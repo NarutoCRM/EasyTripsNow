@@ -1,7 +1,9 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react";
+import { appData } from "../data";
+import { formatPhoneNumber } from "../utils/helper";
 
-const PHONE_NUMBER = "18669871234"
-const DISPLAY_PHONE = "(855) 750-2715"
+const PHONE_NUMBER = appData.phoneNumber;
+const DISPLAY_PHONE = formatPhoneNumber(PHONE_NUMBER);
 
 const deals = [
   {
@@ -42,93 +44,93 @@ const deals = [
   {
     type: "contact",
   },
-]
+];
 
 // 3 copies = seamless infinite loop
-const loopSlides = [...deals, ...deals, ...deals]
+const loopSlides = [...deals, ...deals, ...deals];
 
 const FlightDeals = () => {
-  const sliderRef = useRef(null)
-  const autoPlayRef = useRef(null)
+  const sliderRef = useRef(null);
+  const autoPlayRef = useRef(null);
 
-  const CARD_WIDTH = 236
-  const SET_SIZE = deals.length
+  const CARD_WIDTH = 236;
+  const SET_SIZE = deals.length;
 
   // Start from middle copy
   useEffect(() => {
-    const slider = sliderRef.current
+    const slider = sliderRef.current;
 
-    if (!slider) return
+    if (!slider) return;
 
     requestAnimationFrame(() => {
-      slider.scrollLeft = SET_SIZE * CARD_WIDTH
-    })
+      slider.scrollLeft = SET_SIZE * CARD_WIDTH;
+    });
 
-    startAutoPlay()
+    startAutoPlay();
 
     return () => {
-      clearInterval(autoPlayRef.current)
-    }
-  }, [])
+      clearInterval(autoPlayRef.current);
+    };
+  }, []);
 
   const startAutoPlay = () => {
-    clearInterval(autoPlayRef.current)
+    clearInterval(autoPlayRef.current);
 
     autoPlayRef.current = setInterval(() => {
-      moveNext()
-    }, 3000)
-  }
+      moveNext();
+    }, 3000);
+  };
 
   const pauseAutoPlay = () => {
-    clearInterval(autoPlayRef.current)
-  }
+    clearInterval(autoPlayRef.current);
+  };
 
   const moveNext = () => {
-    const slider = sliderRef.current
+    const slider = sliderRef.current;
 
-    if (!slider) return
+    if (!slider) return;
 
     slider.scrollBy({
       left: CARD_WIDTH,
       behavior: "smooth",
-    })
+    });
 
     setTimeout(() => {
-      resetPosition()
-    }, 650)
-  }
+      resetPosition();
+    }, 650);
+  };
 
   const movePrevious = () => {
-    const slider = sliderRef.current
+    const slider = sliderRef.current;
 
-    if (!slider) return
+    if (!slider) return;
 
     slider.scrollBy({
       left: -CARD_WIDTH,
       behavior: "smooth",
-    })
+    });
 
     setTimeout(() => {
-      resetPosition()
-    }, 650)
-  }
+      resetPosition();
+    }, 650);
+  };
 
   const resetPosition = () => {
-    const slider = sliderRef.current
+    const slider = sliderRef.current;
 
-    if (!slider) return
+    if (!slider) return;
 
-    const middleStart = SET_SIZE * CARD_WIDTH
-    const middleEnd = SET_SIZE * 2 * CARD_WIDTH
+    const middleStart = SET_SIZE * CARD_WIDTH;
+    const middleEnd = SET_SIZE * 2 * CARD_WIDTH;
 
     /*
      * If we reach the third copy,
      * silently move back to the middle copy.
      */
     if (slider.scrollLeft >= middleEnd) {
-      slider.style.scrollBehavior = "auto"
-      slider.scrollLeft -= SET_SIZE * CARD_WIDTH
-      slider.style.scrollBehavior = "smooth"
+      slider.style.scrollBehavior = "auto";
+      slider.scrollLeft -= SET_SIZE * CARD_WIDTH;
+      slider.style.scrollBehavior = "smooth";
     }
 
     /*
@@ -136,32 +138,28 @@ const FlightDeals = () => {
      * silently move forward to the middle copy.
      */
     if (slider.scrollLeft < middleStart) {
-      slider.style.scrollBehavior = "auto"
-      slider.scrollLeft += SET_SIZE * CARD_WIDTH
-      slider.style.scrollBehavior = "smooth"
+      slider.style.scrollBehavior = "auto";
+      slider.scrollLeft += SET_SIZE * CARD_WIDTH;
+      slider.style.scrollBehavior = "smooth";
     }
-  }
+  };
 
   const handleMouseEnter = () => {
-    pauseAutoPlay()
-  }
+    pauseAutoPlay();
+  };
 
   const handleMouseLeave = () => {
-    startAutoPlay()
-  }
+    startAutoPlay();
+  };
 
   return (
     <section className="bg-[#f7faff] py-12">
       <div className="max-w-6xl mx-auto px-4">
-
         {/* ================= HEADER ================= */}
         <div className="flex items-center justify-between mb-6">
-
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-orange-500 text-lg">
-                ⏰
-              </span>
+              <span className="text-orange-500 text-lg">⏰</span>
 
               <h2 className="text-xl sm:text-2xl font-extrabold text-[#123b7a]">
                 Limited Time Flight Deals
@@ -175,13 +173,12 @@ const FlightDeals = () => {
 
           {/* Navigation */}
           <div className="flex items-center gap-2">
-
             <button
               type="button"
               onClick={() => {
-                pauseAutoPlay()
-                movePrevious()
-                startAutoPlay()
+                pauseAutoPlay();
+                movePrevious();
+                startAutoPlay();
               }}
               className="w-9 h-9 rounded-full bg-white
                          border border-gray-200
@@ -198,9 +195,9 @@ const FlightDeals = () => {
             <button
               type="button"
               onClick={() => {
-                pauseAutoPlay()
-                moveNext()
-                startAutoPlay()
+                pauseAutoPlay();
+                moveNext();
+                startAutoPlay();
               }}
               className="w-9 h-9 rounded-full bg-white
                          border border-gray-200
@@ -213,7 +210,6 @@ const FlightDeals = () => {
             >
               →
             </button>
-
           </div>
         </div>
 
@@ -231,9 +227,7 @@ const FlightDeals = () => {
                      [scrollbar-width:none]
                      [&::-webkit-scrollbar]:hidden"
         >
-
           {loopSlides.map((slide, index) => {
-
             /* ================= CONTACT CARD ================= */
             if (slide.type === "contact") {
               return (
@@ -258,7 +252,6 @@ const FlightDeals = () => {
                                hover:shadow-2xl
                                transition-all duration-300"
                   >
-
                     {/* Decorative */}
                     <div
                       className="absolute
@@ -288,7 +281,6 @@ const FlightDeals = () => {
                                  flex
                                  flex-col"
                     >
-
                       {/* Icon */}
                       <div
                         className="w-10
@@ -300,9 +292,7 @@ const FlightDeals = () => {
                                    justify-center
                                    text-white
                                    text-lg"
-                      >
-
-                      </div>
+                      ></div>
 
                       {/* Heading */}
                       <h3
@@ -328,10 +318,7 @@ const FlightDeals = () => {
 
                       {/* Bottom */}
                       <div className="mt-auto pt-4">
-
-                        <p className="text-[10px] text-white/70">
-                          Book now at
-                        </p>
+                        <p className="text-[10px] text-white/70">Book now at</p>
 
                         <a
                           href={`tel:${PHONE_NUMBER}`}
@@ -364,12 +351,11 @@ const FlightDeals = () => {
                         >
                           Book Now
                         </a>
-
                       </div>
                     </div>
                   </div>
                 </div>
-              )
+              );
             }
 
             /* ================= DEAL CARD ================= */
@@ -393,10 +379,8 @@ const FlightDeals = () => {
                              transition-all
                              duration-300"
                 >
-
                   {/* Image */}
                   <div className="relative h-[110px] overflow-hidden">
-
                     <img
                       src={slide.image}
                       alt={`${slide.from} to ${slide.to}`}
@@ -415,36 +399,26 @@ const FlightDeals = () => {
                                  group-hover:bg-transparent
                                  transition"
                     />
-
                   </div>
 
                   {/* Content */}
                   <div className="p-4">
-
-                    <p className="text-[10px] text-gray-400">
-                      {slide.from}
-                    </p>
+                    <p className="text-[10px] text-gray-400">{slide.from}</p>
 
                     <h3 className="text-sm font-bold text-[#123b7a]">
                       To {slide.to}
                     </h3>
 
                     <div className="mt-3 flex items-end justify-between">
-
                       <div>
-                        <p className="text-[9px] text-gray-400">
-                          From
-                        </p>
+                        <p className="text-[9px] text-gray-400">From</p>
 
                         <p className="text-xl font-extrabold text-[#123b7a]">
                           {slide.price}
                         </p>
                       </div>
 
-                      <p className="text-[9px] text-gray-400">
-                        Round Trip
-                      </p>
-
+                      <p className="text-[9px] text-gray-400">Round Trip</p>
                     </div>
 
                     {/* Book Now */}
@@ -469,23 +443,20 @@ const FlightDeals = () => {
                     >
                       Book Now
                     </a>
-
                   </div>
                 </div>
               </div>
-            )
+            );
           })}
-
         </div>
 
         {/* Mobile */}
         <p className="sm:hidden text-center text-[10px] text-gray-400 mt-1">
           Swipe to explore more deals →
         </p>
-
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default FlightDeals
+export default FlightDeals;

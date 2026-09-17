@@ -194,7 +194,7 @@ const AboutUs = () => {
             </div>
 
             <a
-              href="tel:8557502715"
+              href={`tel:${appData.phoneNumber}`}
               className="inline-flex mt-7 items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-bold text-[#123b7a] hover:bg-gray-100 transition"
             >
               Talk to a Travel Expert

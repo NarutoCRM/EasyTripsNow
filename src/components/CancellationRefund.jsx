@@ -1,3 +1,6 @@
+import { appData } from "../data"
+import { formatPhoneNumber } from "../utils/helper"
+
 const CancellationRefund = () => {
     return (
         <main className="bg-white">
@@ -421,10 +424,11 @@ const CancellationRefund = () => {
                                     Phone:
                                 </strong>{" "}
                                 <a
-                                    href="tel:8557502715"
+                                    href={`tel:${appData.phoneNumber}`}
                                     className="text-[#1687d9] hover:underline font-semibold"
                                 >
-                                    (855) 750-2715
+                                   
+                                    {formatPhoneNumber(appData.phoneNumber)}
                                 </a>
                             </p>
 
@@ -473,13 +477,13 @@ const CancellationRefund = () => {
                         </p>
 
                         <a
-                            href="tel:8557502715"
+                            href={`tel:${appData.phoneNumber}`}
                             className="inline-flex mt-5 items-center justify-center
                          rounded-lg bg-white px-6 py-3
                          text-sm font-bold text-[#123b7a]
                          hover:bg-gray-100 transition"
                         >
-                            Call(855) 750-2715
+                             {formatPhoneNumber(appData.phoneNumber)}
                         </a>
 
                     </div>

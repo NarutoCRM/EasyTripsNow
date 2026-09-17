@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { formatPhoneNumber } from "../utils/helper"
+import { appData } from "../data"
 
 const faqs = [
     {
@@ -141,10 +143,10 @@ const FAQ = () => {
                     </p>
 
                     <a
-                        href="tel:(855)750-2715"
+                        href={`tel:${appData.phoneNumber}`}
                         className="inline-block mt-2 text-sm font-bold text-[#1687d9] hover:text-[#123b7a]"
                     >
-                        Talk to an Expert → (855)750-2715
+                        Talk to an Expert →  {formatPhoneNumber(appData.phoneNumber)}
                     </a>
 
                 </div>

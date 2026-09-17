@@ -1,7 +1,10 @@
 import React from "react"
+import { appData } from "../data"
+import { formatPhoneNumber } from "../utils/helper"
 
-const PHONE_NUMBER = "8557502715"
-const DISPLAY_PHONE = "(855) 750-2715"
+
+const PHONE_NUMBER = appData.phoneNumber
+const DISPLAY_PHONE = formatPhoneNumber(PHONE_NUMBER)
 
 const Section = ({ number, title, children }) => (
     <section className="mb-10">

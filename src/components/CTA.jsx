@@ -1,3 +1,6 @@
+import { appData } from "../data"
+import { formatPhoneNumber } from "../utils/helper"
+
 const CTA = () => {
   return (
     <section className="py-14 bg-gradient-to-r from-[#123b7a] to-[#1687d9]">
@@ -20,7 +23,7 @@ const CTA = () => {
             href="tel:18669871234"
             className="rounded-lg border border-white/60 px-7 py-3 font-bold hover:bg-white/10 transition"
           >
-            Call an Expert: (855) 750-2715
+            Call an Expert:  {formatPhoneNumber(appData.phoneNumber)}
           </a>
         </div>
       </div>
