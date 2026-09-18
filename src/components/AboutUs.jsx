@@ -1,7 +1,8 @@
+import { appData } from "../data";
+
 const AboutUs = () => {
   return (
     <main className="bg-white">
-
       {/* ================= HERO ================= */}
       <section className="relative overflow-hidden bg-gradient-to-r from-[#062b5c] to-[#1687d9]">
         <div className="absolute inset-0 bg-[url('/hero-plane.jpg')] bg-cover bg-center opacity-15" />
@@ -26,7 +27,6 @@ const AboutUs = () => {
       {/* ================= CONTENT ================= */}
       <section className="py-14 sm:py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-
           {/* Intro */}
           <div className="mb-12">
             <p className="text-gray-600 text-base sm:text-lg leading-8">
@@ -56,9 +56,8 @@ const AboutUs = () => {
               <p>
                 Every traveler has different priorities. Some people want the
                 most convenient schedule, while others are looking for
-                competitive fares or flexible travel options. We understand
-                that there isn't a single travel solution that works for
-                everyone.
+                competitive fares or flexible travel options. We understand that
+                there isn't a single travel solution that works for everyone.
               </p>
 
               <p>
@@ -71,9 +70,9 @@ const AboutUs = () => {
 
               <p>
                 Our goal isn't simply to help you find a flight. It's to make
-                the overall experience feel more straightforward—from the
-                moment you begin searching to the moment you're ready to
-                finalize your travel plans.
+                the overall experience feel more straightforward—from the moment
+                you begin searching to the moment you're ready to finalize your
+                travel plans.
               </p>
             </div>
           </div>
@@ -100,8 +99,8 @@ const AboutUs = () => {
               </p>
 
               <p>
-                We believe good travel service starts with listening. Instead
-                of treating every traveler the same, we aim to understand what
+                We believe good travel service starts with listening. Instead of
+                treating every traveler the same, we aim to understand what
                 you're looking for and help you explore options that make sense
                 for your trip.
               </p>
@@ -115,7 +114,6 @@ const AboutUs = () => {
             </h2>
 
             <div className="grid sm:grid-cols-2 gap-4">
-
               <div className="rounded-2xl border border-gray-200 bg-[#f8fbff] p-6 hover:-translate-y-1 hover:shadow-lg transition-all">
                 <h3 className="font-extrabold text-[#123b7a]">
                   Convenient Travel Search
@@ -133,8 +131,8 @@ const AboutUs = () => {
                 </h3>
 
                 <p className="mt-2 text-sm text-gray-600 leading-6">
-                  Discover available travel options and compare choices based
-                  on your needs.
+                  Discover available travel options and compare choices based on
+                  your needs.
                 </p>
               </div>
 
@@ -159,7 +157,6 @@ const AboutUs = () => {
                   easier and more transparent.
                 </p>
               </div>
-
             </div>
           </div>
 
@@ -200,12 +197,10 @@ const AboutUs = () => {
               Talk to a Travel Expert
             </a>
           </div>
-
         </div>
       </section>
-
     </main>
-  )
-}
+  );
+};
 
-export default AboutUs
+export default AboutUs;
