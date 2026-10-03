@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { formatPhoneNumber } from "../utils/helper"
 import { appData } from "../data"
-import EasyTripsNow_Logo from "../../public/EasyTripsNow_Logo.png"
+
 
 const PHONE = "8557502715"
 
@@ -22,7 +22,7 @@ export default function Navbar() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
         {/* Logo */}
         <a href="/" className=" h-10 w-25 flex items-center ">
-         <img src={EasyTripsNow_Logo} alt="EasyTripsNow Logo" />
+         <img src="../../public/EasyTripsNow_Logo.png" alt="EasyTripsNow Logo" />
         </a>
 
         {/* Desktop Navigation */}
