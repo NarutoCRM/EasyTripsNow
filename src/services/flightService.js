@@ -1,6 +1,7 @@
 import { mockFlights } from "../data/mockFlights";
 
 const API_URL = import.meta.env.VITE_FLIGHT_API_URL;
+
 const API_KEY = import.meta.env.VITE_FLIGHT_API_KEY;
 
 export function normalizeFlightResults(response) {

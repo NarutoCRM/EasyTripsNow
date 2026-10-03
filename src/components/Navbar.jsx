@@ -8,7 +8,7 @@ const navLinks = [
   { label: "Flights", href: "/#flight-search" },
   { label: "Hotels", href: "/#hotels" },
   { label: "Cars", href: "/#cars" },
-  { label: "Deals", href: "/#deals" },
+  { label: "Deals", href: "/#deal" },
   { label: "About Us", href: "/about-us" },
   { label: "Contact Us", href: "/contact-us" },
 ]

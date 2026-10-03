@@ -3,6 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import Layout from "./Layout";
 import FlightCard from "./FlightCard";
 import { searchFlights } from "../services/flightService";
+
 import airports from "../data/airports.json";
 
 const byCode = Object.fromEntries(airports.filter((airport) => airport.iata).map((airport) => [airport.iata, airport]));
