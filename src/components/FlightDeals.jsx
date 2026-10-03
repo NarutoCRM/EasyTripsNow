@@ -153,7 +153,7 @@ const FlightDeals = () => {
   };
 
   return (
-    <section className="bg-[#f7faff] py-12">
+    <section id="deals" className="bg-[#f7faff] py-12">
       <div className="max-w-6xl mx-auto px-4">
         {/* ================= HEADER ================= */}
         <div className="flex items-center justify-between mb-6">
