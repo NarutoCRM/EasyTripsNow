@@ -21,9 +21,13 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
         {/* Logo */}
-        <a href="/" className=" h-10 w-25 flex items-center ">
-         <img src="../../public/EasyTripsNow_Logo.png" alt="EasyTripsNow Logo" />
-        </a>
+           <a href="/" className="flex h-10 items-center">
+              <img
+                src="/EasyTripsNow_Logo.png"
+                alt="EasyTripsNow Logo"
+                className="h-10 w-auto object-contain"
+              />
+          </a>
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-7 lg:flex">
