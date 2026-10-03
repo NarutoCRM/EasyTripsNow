@@ -21,7 +21,7 @@ export default function Navbar() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
         {/* Logo */}
         <a href="/" className=" h-10 w-25 flex items-center ">
-         <img src="./public/EasyTripsNow_Logo.png" alt="EasyTripsNow Logo" />
+         <img src="../public/EasyTripsNow_Logo.png" alt="EasyTripsNow Logo" />
         </a>
 
         {/* Desktop Navigation */}
