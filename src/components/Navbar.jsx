@@ -25,7 +25,7 @@ export default function Navbar() {
               <img
                 src="/EasyTripsNow_Logo.png"
                 alt="EasyTripsNow Logo"
-                className="h-10 w-auto object-contain"
+                className="h-16 w-auto object-contain"
               />
           </a>
 
