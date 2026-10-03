@@ -4,6 +4,7 @@ const Hero = () => {
   return (
     
     <section
+      id="flight-search"
       className="relative min-h-[calc(100vh-65px)] flex items-center overflow-hidden bg-cover bg-center"
       style={{ backgroundImage: "url('/hero-plane.jpg')" }}
     >

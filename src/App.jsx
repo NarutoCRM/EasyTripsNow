@@ -27,6 +27,7 @@ import CheapFlightsParis from "./components/CheapFlightsParis";
 import CheapFlightsSanFrancisco from "./components/CheapFlightsSanFrancisco";
 import CheapFlightsBoston from "./components/CheapFlightsBoston";
 import ContactUs from "./components/ContactUs";
+import FlightResults from "./components/FlightResults";
 
 function Layout({ children, floating = true }) {
   return (
@@ -66,6 +67,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/flight-results" element={<FlightResults />} />
         {/* HOME */}
         <Route path="/" element={<Home />} />
 
