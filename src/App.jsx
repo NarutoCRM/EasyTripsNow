@@ -67,7 +67,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/flight-results" element={<FlightResults />} />
+        <Route
+          path="/flight-results"
+          element={
+            <Layout>
+              <FlightResults />
+            </Layout>
+          }
+        />
         {/* HOME */}
         <Route path="/" element={<Home />} />
 
