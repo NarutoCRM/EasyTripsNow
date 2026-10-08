@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
@@ -14,20 +15,19 @@ import Testimonials from "./components/Testimonials";
 import FAQ from "./components/FAQ";
 import CTA from "./components/CTA";
 
-import AboutUs from "./components/AboutUs";
-import PrivacyPolicy from "./components/PrivacyPolicy";
-import TermsConditions from "./components/TermsConditions";
-import CancellationRefund from "./components/CancellationRefund";
-import CookiePolicy from "./components/CookiePolicy";
-import Disclaimer from "./components/Disclaimer";
-
-import CheapFlightsNewYork from "./components/CheapFlightsNewYork";
-import CheapFlightsLosAngeles from "./components/CheapFlightsLosAngeles";
-import CheapFlightsParis from "./components/CheapFlightsParis";
-import CheapFlightsSanFrancisco from "./components/CheapFlightsSanFrancisco";
-import CheapFlightsBoston from "./components/CheapFlightsBoston";
-import ContactUs from "./components/ContactUs";
-import FlightResults from "./components/flight-results/FlightResults";
+const AboutUs = lazy(() => import("./components/AboutUs"));
+const PrivacyPolicy = lazy(() => import("./components/PrivacyPolicy"));
+const TermsConditions = lazy(() => import("./components/TermsConditions"));
+const CancellationRefund = lazy(() => import("./components/CancellationRefund"));
+const CookiePolicy = lazy(() => import("./components/CookiePolicy"));
+const Disclaimer = lazy(() => import("./components/Disclaimer"));
+const CheapFlightsNewYork = lazy(() => import("./components/CheapFlightsNewYork"));
+const CheapFlightsLosAngeles = lazy(() => import("./components/CheapFlightsLosAngeles"));
+const CheapFlightsParis = lazy(() => import("./components/CheapFlightsParis"));
+const CheapFlightsSanFrancisco = lazy(() => import("./components/CheapFlightsSanFrancisco"));
+const CheapFlightsBoston = lazy(() => import("./components/CheapFlightsBoston"));
+const ContactUs = lazy(() => import("./components/ContactUs"));
+const FlightResults = lazy(() => import("./components/flight-results/FlightResults"));
 
 function Layout({ children, floating = true }) {
   return (
@@ -66,7 +66,8 @@ function Home() {
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
+      <Suspense fallback={<div role="status" className="p-6 text-center">Loading page...</div>}>
+        <Routes>
         <Route
           path="/flight-results"
           element={
@@ -191,7 +192,8 @@ function App() {
 
         {/* FALLBACK */}
         <Route path="*" element={<Home />} />
-      </Routes>
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }

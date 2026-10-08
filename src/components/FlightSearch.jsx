@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { appData } from "../data";
 import { formatPhoneNumber } from "../utils/helper";
@@ -9,8 +9,21 @@ function AirportField({ label, value, airport, onChange, onSelect, error }) {
   const [focused, setFocused] = useState(false);
   const [query, setQuery] = useState(airport ? `${airport.name} (${airport.iata})` : value);
   const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [suggestionsError, setSuggestionsError] = useState("");
   useEffect(() => { const timer = setTimeout(() => setDebouncedQuery(query), 140); return () => clearTimeout(timer); }, [query]);
-  const suggestions = useMemo(() => searchAirports(debouncedQuery), [debouncedQuery]);
+  useEffect(() => {
+    let cancelled = false;
+    setSuggestions([]);
+    setSuggestionsError("");
+    searchAirports(debouncedQuery)
+      .then((results) => { if (!cancelled) setSuggestions(results); })
+      .catch((error) => {
+        console.error("Could not load airport suggestions.", error);
+        if (!cancelled) setSuggestionsError("Airport suggestions could not be loaded. Please try again.");
+      });
+    return () => { cancelled = true; };
+  }, [debouncedQuery]);
   useEffect(() => { if (airport) setQuery(`${airport.name} (${airport.iata})`); }, [airport]);
   return <div className="relative h-[48px] rounded-lg border border-gray-200 px-3 flex items-center gap-2">
     <span className="text-[#1687d9] text-sm">✈</span><div className="min-w-0 flex-1"><p className="text-[9px] text-gray-400">{label}</p>
@@ -23,7 +36,7 @@ function AirportField({ label, value, airport, onChange, onSelect, error }) {
       {suggestions.map((item, index) => <li key={`${item.iata}-${item.icao}-${index}`}><button type="button" onMouseDown={(event) => event.preventDefault()} onClick={() => { onSelect(item); setQuery(`${item.name} (${item.iata})`); setFocused(false); }} className="w-full px-3 py-2 text-left hover:bg-blue-50">
         <span className="block truncate text-xs font-semibold text-gray-800">{item.name}</span><span className="block text-[11px] text-gray-500">{item.iata || "—"} · {item.city}, {item.country}</span>
       </button></li>)}
-    </ul>}{error && <p className="absolute left-0 top-full mt-1 text-[10px] text-red-600">{error}</p>}
+    </ul>}{(error || suggestionsError) && <p role={suggestionsError ? "alert" : undefined} className="absolute left-0 top-full mt-1 text-[10px] text-red-600">{error || suggestionsError}</p>}
   </div>;
 }
 
@@ -32,8 +45,8 @@ export default function FlightSearch() {
   const [tripType, setTripType] = useState("Round Trip");
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [from, setFrom] = useState(() => getAirportByIata(searchParams.get("from")));
-  const [to, setTo] = useState(() => getAirportByIata(searchParams.get("to")));
+  const [from, setFrom] = useState(null);
+  const [to, setTo] = useState(null);
   const [fromText, setFromText] = useState(""); const [toText, setToText] = useState("");
   const [departureDate, setDepartureDate] = useState(searchParams.get("departure") ?? "");
   const [returnDate, setReturnDate] = useState(searchParams.get("return") ?? "");
@@ -41,6 +54,30 @@ export default function FlightSearch() {
   const [travelers, setTravelers] = useState(searchParams.get("travelers") ?? "1");
   const [errors, setErrors] = useState({});
   const selectedTrip = searchParams.get("tripType");
+  useEffect(() => {
+    const fromCode = searchParams.get("from");
+    const toCode = searchParams.get("to");
+    if (!fromCode && !toCode) return undefined;
+
+    let cancelled = false;
+    Promise.all([getAirportByIata(fromCode), getAirportByIata(toCode)])
+      .then(([departureAirport, arrivalAirport]) => {
+        if (!cancelled) {
+          setFrom(departureAirport);
+          setTo(arrivalAirport);
+        }
+      })
+      .catch((error) => {
+        console.error("Could not restore airport selections.", error);
+        if (!cancelled) {
+          setErrors((current) => ({
+            ...current,
+            from: "Airport data could not be loaded. Please refresh and try again.",
+          }));
+        }
+      });
+    return () => { cancelled = true; };
+  }, [searchParams]);
   useEffect(() => { if (selectedTrip) setTripType(({ "round-trip": "Round Trip", "one-way": "One Way", "multi-city": "Multi-City" })[selectedTrip] ?? "Round Trip"); }, [selectedTrip]);
   const today = new Date().toISOString().slice(0, 10);
   const submit = (event) => {

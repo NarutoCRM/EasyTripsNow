@@ -30,8 +30,8 @@ export default function FlightResults() {
   const search = useMemo(
     () => ({
       tripType: params.get("tripType") ?? "round-trip",
-      from: getAirportByIata(params.get("from")),
-      to: getAirportByIata(params.get("to")),
+      from: params.get("from") ?? "",
+      to: params.get("to") ?? "",
       departureDate: params.get("departure") ?? "",
       returnDate: params.get("return") ?? "",
       cabin: params.get("cabin") ?? "economy",
@@ -41,16 +41,38 @@ export default function FlightResults() {
   );
 
   const [loadedSearch, setLoadedSearch] = useState(null);
+  const [airports, setAirports] = useState(null);
+  const [airportError, setAirportError] = useState("");
   const isLoading = loadedSearch !== search;
 
   useEffect(() => {
     let cancelled = false;
     let timer;
+    setAirports(null);
+    setAirportError("");
     const delay = new Promise((resolve) => {
       timer = window.setTimeout(resolve, 2000);
     });
-    Promise.allSettled([searchFlights(search), delay]).then(() => {
-      if (!cancelled) setLoadedSearch(search);
+    const airportRequest = Promise.all([
+      getAirportByIata(search.from),
+      getAirportByIata(search.to),
+    ]);
+    const flightRequest = airportRequest.then(([from, to]) =>
+      searchFlights({ ...search, from, to }),
+    );
+    Promise.allSettled([
+      flightRequest,
+      delay,
+      airportRequest,
+    ]).then(([, , airportResult]) => {
+      if (cancelled) return;
+      if (airportResult.status === "fulfilled") {
+        setAirports({ search, from: airportResult.value[0], to: airportResult.value[1] });
+      } else {
+        console.error("Could not load airport details for flight results.", airportResult.reason);
+        setAirportError("Airport details could not be loaded. Please refresh the page to try again.");
+      }
+      setLoadedSearch(search);
     });
     return () => {
       cancelled = true;
@@ -69,10 +91,11 @@ export default function FlightResults() {
     .replaceAll("-", " ")
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 
-  const airportLabel = (airport) =>
+  const airportLabel = (airport, code) =>
     airport
       ? `${airport.city || airport.name} (${airport.iata})`
-      : "Not provided";
+      : code || "Not provided";
+  const resolvedAirports = airports?.search === search ? airports : null;
 
   const modifyUrl = `/?${params.toString()}#flight-search`;
 
@@ -106,6 +129,8 @@ export default function FlightResults() {
         </div>
       )}
 
+      {airportError && <p role="alert" className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">{airportError}</p>}
+
       <dl
         aria-busy={isLoading}
         aria-label="Search summary"
@@ -130,7 +155,7 @@ export default function FlightResults() {
             <div>
               <dt>Route</dt>
               <dd>
-                {airportLabel(search.from)} to {airportLabel(search.to)}
+                {airportLabel(resolvedAirports?.from, search.from)} to {airportLabel(resolvedAirports?.to, search.to)}
               </dd>
             </div>
             <div>
