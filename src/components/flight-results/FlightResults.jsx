@@ -133,12 +133,10 @@ export default function FlightResults() {
             <Link to={modifyUrl}>Search options</Link>
           </div>
 
-          <div
-            className="grid gap-4"
-            aria-live="polite"
-            aria-busy={status === "loading"}
-          >
-            <DelayedFlightDetail />
+          <div className="grid gap-1" aria-live="polite">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <DelayedFlightDetail key={index} />
+            ))}
           </div>
         </section>
         <aside className="rounded-xl border border-[#dfe7ee] bg-white p-5 shadow-[0_1px_3px_#162c3d12] [&>p:first-child]:tracking-[0.3px] [&_h2]:my-2 [&_h2]:text-base [&_h2]:font-bold [&_h2]:leading-normal [&>p:not(:first-child)]:mb-4 [&>p:not(:first-child)]:text-sm [&>p:not(:first-child)]:text-[#748499] [&>a]:text-sm [&>a]:font-bold max-[800px]:mt-1">

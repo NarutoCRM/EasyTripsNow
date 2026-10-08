@@ -8,7 +8,7 @@ export default function FlightDetail() {
   const retry = () => window.location.reload();
   return (
     <div
-      className="mt-4 rounded-xl border border-amber-300 bg-amber-50 p-5 sm:p-7"
+      className="mt-2 rounded-xl border border-amber-300 bg-amber-50 p-5 sm:p-7"
       role="alert"
     >
       <div className="flex items-start gap-3">
