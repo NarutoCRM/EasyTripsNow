@@ -23,11 +23,9 @@ const dateLabel = (value) =>
         timeZone: "UTC",
       }).format(new Date(`${value}T00:00:00Z`))
     : "Not provided";
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default function FlightResults() {
   const [params] = useSearchParams();
-  const [status, setStatus] = useState("loading");
 
   const search = useMemo(
     () => ({
@@ -42,27 +40,22 @@ export default function FlightResults() {
     [params],
   );
 
+  const [loadedSearch, setLoadedSearch] = useState(null);
+  const isLoading = loadedSearch !== search;
+
   useEffect(() => {
-    async function fetchFlights() {
-      let cancelled = false;
-      setStatus("loading");
-      await sleep(5000);
-      searchFlights(search)
-        .then((result) => {
-          if (!cancelled) {
-            setStatus(
-              result.status === "demo"
-                ? "demo"
-                : result.flights.length
-                  ? "results"
-                  : "empty",
-            );
-          }
-        })
-        .catch(() => !cancelled ?? setStatus("error"));
-      return () => (cancelled = true);
-    }
-    fetchFlights();
+    let cancelled = false;
+    let timer;
+    const delay = new Promise((resolve) => {
+      timer = window.setTimeout(resolve, 2000);
+    });
+    Promise.allSettled([searchFlights(search), delay]).then(() => {
+      if (!cancelled) setLoadedSearch(search);
+    });
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
   }, [search]);
 
   const tripName =
@@ -70,7 +63,7 @@ export default function FlightResults() {
       ? "Round trip"
       : search.tripType === "one-way"
         ? "One way"
-        : "Multi-city";
+        : "Multi City";
 
   const cabin = search.cabin
     .replaceAll("-", " ")
@@ -85,45 +78,83 @@ export default function FlightResults() {
 
   return (
     <main className="mx-auto min-h-190 max-w-6xl pt-12 pb-12 min-[1200px]:w-3/5 min-[1200px]:min-w-262.5 max-[1199px]:mx-6 max-[800px]:mx-0 max-[800px]:min-h-[65vh] max-[800px]:px-5 max-[800px]:py-7.5">
-      <div className="mb-6 flex items-center justify-between gap-5 [&_h1]:m-0 [&_h1]:font-[Georgia,Times_New_Roman,serif] [&_h1]:text-[38px] [&_h1]:leading-tight [&_h1]:font-normal max-[800px]:[&_h1]:text-[30px] max-[800px]:[&>a]:px-3 max-[800px]:[&>a]:py-2.25 max-[800px]:[&>a]:text-xs">
-        <div>
-          <p className="mb-1 text-xs font-bold tracking-[1.8px] text-[#009597] uppercase">
-            Flight search
-          </p>
-          <h1>Flight results</h1>
-        </div>
-        <Link className={secondaryButton} to={modifyUrl}>
-          Modify search
-        </Link>
-      </div>
-
-      <dl className="mb-6 grid grid-cols-4 gap-3 rounded-xl border border-[#dfe7ee] bg-white p-4 shadow-[0_1px_3px_#162c3d12] [&>div]:min-h-17.5 [&>div]:border-b [&>div]:border-[#e4ebf1] [&>div]:pb-3 [&_dt]:text-xs [&_dt]:font-semibold [&_dt]:tracking-[0.3px] [&_dt]:text-[#728ba5] [&_dt]:uppercase [&_dd]:mt-1 [&_dd]:text-sm [&_dd]:font-semibold [&_dd]:leading-normal max-[800px]:grid-cols-2 max-[800px]:[&_dd]:text-[13px]">
-        <div>
-          <dt>Route</dt>
-          <dd>
-            {airportLabel(search.from)} to {airportLabel(search.to)}
-          </dd>
-        </div>
-        <div>
-          <dt>Trip type</dt>
-          <dd>{tripName}</dd>
-        </div>
-        <div>
-          <dt>Departure</dt>
-          <dd>{dateLabel(search.departureDate)}</dd>
-        </div>
-        <div>
-          <dt>Travelers · Cabin</dt>
-          <dd>
-            {search.travelers}{" "}
-            {search.travelers === 1 ? "traveler" : "travelers"} · {cabin}
-          </dd>
-        </div>
-        {search.tripType === "round-trip" && (
-          <div>
-            <dt>Return</dt>
-            <dd>{dateLabel(search.returnDate)}</dd>
+      <span className="sr-only" role="status">
+        {isLoading ? "Loading flight results" : "Flight results loaded"}
+      </span>
+      {isLoading ? (
+        <div
+          aria-hidden="true"
+          className="mb-6 flex min-h-16 items-center justify-between gap-5 motion-safe:animate-pulse"
+        >
+          <div className="space-y-2">
+            <div className="h-3 w-24 rounded bg-slate-200" />
+            <div className="h-10 w-52 rounded bg-slate-200 max-[800px]:h-8" />
           </div>
+          <div className="h-10 w-28 rounded-[7px] bg-slate-200" />
+        </div>
+      ) : (
+        <div className="mb-6 flex items-center justify-between gap-5 [&_h1]:m-0 [&_h1]:font-[Georgia,Times_New_Roman,serif] [&_h1]:text-[38px] [&_h1]:leading-tight [&_h1]:font-normal max-[800px]:[&_h1]:text-[30px] max-[800px]:[&>a]:px-3 max-[800px]:[&>a]:py-2.25 max-[800px]:[&>a]:text-xs">
+          <div>
+            <p className="mb-1 text-xs font-bold tracking-[1.8px] text-[#009597] uppercase">
+              Flight search
+            </p>
+            <h1>Flight results</h1>
+          </div>
+          <Link className={secondaryButton} to={modifyUrl}>
+            Modify search
+          </Link>
+        </div>
+      )}
+
+      <dl
+        aria-busy={isLoading}
+        aria-label="Search summary"
+        className="mb-6 grid grid-cols-4 gap-3 rounded-xl border border-[#dfe7ee] bg-white p-4 shadow-[0_1px_3px_#162c3d12] [&>div]:min-h-17.5 [&>div]:border-b [&>div]:border-[#e4ebf1] [&>div]:pb-3 [&_dt]:text-xs [&_dt]:font-semibold [&_dt]:tracking-[0.3px] [&_dt]:text-[#728ba5] [&_dt]:uppercase [&_dd]:mt-1 [&_dd]:text-sm [&_dd]:font-semibold [&_dd]:leading-normal max-[800px]:grid-cols-2 max-[800px]:[&_dd]:text-[13px]"
+      >
+        {isLoading ? (
+          Array.from(
+            { length: search.tripType === "round-trip" ? 5 : 4 },
+            (_, index) => (
+              <div
+                key={index}
+                aria-hidden="true"
+                className="space-y-2 motion-safe:animate-pulse"
+              >
+                <div className="h-3 w-20 rounded bg-slate-200" />
+                <div className="h-4 w-4/5 rounded bg-slate-200" />
+              </div>
+            ),
+          )
+        ) : (
+          <>
+            <div>
+              <dt>Route</dt>
+              <dd>
+                {airportLabel(search.from)} to {airportLabel(search.to)}
+              </dd>
+            </div>
+            <div>
+              <dt>Trip type</dt>
+              <dd>{tripName}</dd>
+            </div>
+            <div>
+              <dt>Departure</dt>
+              <dd>{dateLabel(search.departureDate)}</dd>
+            </div>
+            <div>
+              <dt>Travelers · Cabin</dt>
+              <dd>
+                {search.travelers}{" "}
+                {search.travelers === 1 ? "traveler" : "travelers"} · {cabin}
+              </dd>
+            </div>
+            {search.tripType === "round-trip" && (
+              <div>
+                <dt>Return</dt>
+                <dd>{dateLabel(search.returnDate)}</dd>
+              </div>
+            )}
+          </>
         )}
       </dl>
       <div className="grid grid-cols-[minmax(0,3fr)_minmax(240px,1.03fr)] items-start gap-5 max-[800px]:grid-cols-1">
@@ -135,17 +166,38 @@ export default function FlightResults() {
 
           <div className="grid gap-1" aria-live="polite">
             {Array.from({ length: 5 }).map((_, index) => (
-              <DelayedFlightDetail key={index} />
+              <DelayedFlightDetail key={`${params.toString()}-${index}`} />
             ))}
           </div>
         </section>
-        <aside className="rounded-xl border border-[#dfe7ee] bg-white p-5 shadow-[0_1px_3px_#162c3d12] [&>p:first-child]:tracking-[0.3px] [&_h2]:my-2 [&_h2]:text-base [&_h2]:font-bold [&_h2]:leading-normal [&>p:not(:first-child)]:mb-4 [&>p:not(:first-child)]:text-sm [&>p:not(:first-child)]:text-[#748499] [&>a]:text-sm [&>a]:font-bold max-[800px]:mt-1">
-          <p className="mb-1 text-xs font-bold tracking-[1.8px] text-[#009597] uppercase">
-            Need help now?
-          </p>
-          <h2>Speak with a flight specialist</h2>
-          <p>Have your route and travel dates ready when you call.</p>
-          <a href={phoneHref}>{phone}</a>
+        <aside
+          aria-busy={isLoading}
+          aria-label="Need help now?"
+          className="rounded-xl border border-[#dfe7ee] bg-white p-5 shadow-[0_1px_3px_#162c3d12] [&>p:first-child]:tracking-[0.3px] [&_h2]:my-2 [&_h2]:text-base [&_h2]:font-bold [&_h2]:leading-normal [&>p:not(:first-child)]:mb-4 [&>p:not(:first-child)]:text-sm [&>p:not(:first-child)]:text-[#748499] [&>a]:text-sm [&>a]:font-bold max-[800px]:mt-1"
+        >
+          {isLoading ? (
+            <div
+              aria-hidden="true"
+              className="space-y-3 motion-safe:animate-pulse"
+            >
+              <div className="h-3 w-24 rounded bg-teal-100" />
+              <div className="h-5 w-full rounded bg-slate-200" />
+              <div className="space-y-2">
+                <div className="h-4 w-full rounded bg-slate-100" />
+                <div className="h-4 w-2/3 rounded bg-slate-100" />
+              </div>
+              <div className="h-4 w-36 rounded bg-slate-200" />
+            </div>
+          ) : (
+            <>
+              <p className="mb-1 text-xs font-bold tracking-[1.8px] text-[#009597] uppercase">
+                Need help now?
+              </p>
+              <h2>Speak with a flight specialist</h2>
+              <p>Have your route and travel dates ready when you call.</p>
+              <a href={phoneHref}>{phone}</a>
+            </>
+          )}
         </aside>
       </div>
     </main>
