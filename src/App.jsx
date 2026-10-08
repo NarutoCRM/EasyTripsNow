@@ -27,7 +27,7 @@ import CheapFlightsParis from "./components/CheapFlightsParis";
 import CheapFlightsSanFrancisco from "./components/CheapFlightsSanFrancisco";
 import CheapFlightsBoston from "./components/CheapFlightsBoston";
 import ContactUs from "./components/ContactUs";
-import FlightResults from "./components/FlightResults";
+import FlightResults from "./components/flight-results/FlightResults";
 
 function Layout({ children, floating = true }) {
   return (
