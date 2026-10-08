@@ -1,20 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import FlightCard from "./FlightCard";
-import { searchFlights } from "../services/flightService";
-import { getAirportByIata } from "../utils/airportSearch";
-import { appData } from "../data";
-import { formatPhoneNumber } from "../utils/helper";
+
+import { searchFlights } from "../../services/flightService";
+import { getAirportByIata } from "../../utils/airportSearch";
+import { appData } from "../../data";
+import { formatPhoneNumber } from "../../utils/helper";
+import DelayedFlightDetail from "./DelayedFlightDetail";
 
 const buttonClasses =
   "inline-flex min-h-[42px] cursor-pointer items-center justify-center rounded-[7px] border px-[17px] py-2.5 text-[13px] font-semibold leading-[1.4] no-underline";
 const secondaryButton = `${buttonClasses} border-[#cedbe6] bg-white text-[#243d50] hover:bg-[#edf5f5]`;
-const primaryButton = `${buttonClasses} border-[#00847e] bg-[#00847e] text-white hover:bg-[#006b66]`;
 
 const phone = `+1 ${formatPhoneNumber(appData.phoneNumber)}`;
 const phoneHref = `tel:+1${appData.phoneNumber}`;
-const messageClasses =
-  "rounded-xl border border-[#dfe7ee] bg-white p-[30px] text-[#61758b]";
 
 const dateLabel = (value) =>
   value
@@ -25,12 +23,11 @@ const dateLabel = (value) =>
         timeZone: "UTC",
       }).format(new Date(`${value}T00:00:00Z`))
     : "Not provided";
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default function FlightResults() {
   const [params] = useSearchParams();
   const [status, setStatus] = useState("loading");
-  const [flights, setFlights] = useState([]);
-  const [retry, setRetry] = useState(0);
 
   const search = useMemo(
     () => ({
@@ -46,28 +43,27 @@ export default function FlightResults() {
   );
 
   useEffect(() => {
-    let cancelled = false;
-    setStatus("loading");
-    searchFlights(search)
-      .then((result) => {
-        if (!cancelled) {
-          setFlights(result.flights);
-          setStatus(
-            result.status === "demo"
-              ? "demo"
-              : result.flights.length
-                ? "results"
-                : "empty",
-          );
-        }
-      })
-      .catch(() => {
-        if (!cancelled) setStatus("error");
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [search, retry]);
+    async function fetchFlights() {
+      let cancelled = false;
+      setStatus("loading");
+      await sleep(5000);
+      searchFlights(search)
+        .then((result) => {
+          if (!cancelled) {
+            setStatus(
+              result.status === "demo"
+                ? "demo"
+                : result.flights.length
+                  ? "results"
+                  : "empty",
+            );
+          }
+        })
+        .catch(() => !cancelled ?? setStatus("error"));
+      return () => (cancelled = true);
+    }
+    fetchFlights();
+  }, [search]);
 
   const tripName =
     search.tripType === "round-trip"
@@ -100,6 +96,7 @@ export default function FlightResults() {
           Modify search
         </Link>
       </div>
+
       <dl className="mb-6 grid grid-cols-4 gap-3 rounded-xl border border-[#dfe7ee] bg-white p-4 shadow-[0_1px_3px_#162c3d12] [&>div]:min-h-17.5 [&>div]:border-b [&>div]:border-[#e4ebf1] [&>div]:pb-3 [&_dt]:text-xs [&_dt]:font-semibold [&_dt]:tracking-[0.3px] [&_dt]:text-[#728ba5] [&_dt]:uppercase [&_dd]:mt-1 [&_dd]:text-sm [&_dd]:font-semibold [&_dd]:leading-normal max-[800px]:grid-cols-2 max-[800px]:[&_dd]:text-[13px]">
         <div>
           <dt>Route</dt>
@@ -141,65 +138,7 @@ export default function FlightResults() {
             aria-live="polite"
             aria-busy={status === "loading"}
           >
-            {status === "loading" && (
-              <div className={messageClasses}>Searching available flights…</div>
-            )}
-            {status === "error" && (
-              <article className="flex items-start gap-3 rounded-xl border border-[#ffd044] bg-[#fffbec] p-7 [&_h3]:mb-2 [&_h3]:text-xl [&_h3]:font-bold [&_p]:max-w-167.5 [&_p]:text-sm [&_p]:leading-[1.7] [&_p]:text-[#61758b] max-[800px]:px-4.5 max-[800px]:py-5.5 max-[800px]:[&_h3]:text-lg">
-                <span
-                  className="grid size-9 shrink-0 place-items-center rounded-full bg-[#fff1ba] text-[19px] font-bold text-[#b57500]"
-                  aria-hidden="true"
-                >
-                  !
-                </span>
-                <div>
-                  <h3>Something went wrong</h3>
-                  <p>
-                    We couldn't load flight schedules or fares for this search.
-                    Call our travel team and they can help review your route and
-                    options.
-                  </p>
-                  <div className="mt-7 flex flex-wrap gap-3 max-[800px]:mt-5">
-                    <a href={phoneHref} className={primaryButton}>
-                      Call {phone}
-                    </a>
-                    <button
-                      className={secondaryButton}
-                      onClick={() => setRetry((value) => value + 1)}
-                    >
-                      Try again
-                    </button>
-                  </div>
-                </div>
-              </article>
-            )}
-            {status === "empty" && (
-              <div className={messageClasses}>
-                <h3 className="mb-2 text-xl font-bold">No flights found</h3>
-                <p>
-                  No flights were found for the selected route and dates. Modify
-                  your search or call our travel team for help.
-                </p>
-                <Link to={modifyUrl} className={`${secondaryButton} mt-4`}>
-                  Modify search
-                </Link>
-              </div>
-            )}
-
-            {(status === "demo" || status === "results") &&
-              (flights.length ? (
-                flights.map((flight) => (
-                  <FlightCard
-                    key={flight.id}
-                    flight={flight}
-                    demo={status === "demo"}
-                  />
-                ))
-              ) : (
-                <div className={messageClasses}>
-                  No flight options are available.
-                </div>
-              ))}
+            <DelayedFlightDetail />
           </div>
         </section>
         <aside className="rounded-xl border border-[#dfe7ee] bg-white p-5 shadow-[0_1px_3px_#162c3d12] [&>p:first-child]:tracking-[0.3px] [&_h2]:my-2 [&_h2]:text-base [&_h2]:font-bold [&_h2]:leading-normal [&>p:not(:first-child)]:mb-4 [&>p:not(:first-child)]:text-sm [&>p:not(:first-child)]:text-[#748499] [&>a]:text-sm [&>a]:font-bold max-[800px]:mt-1">
